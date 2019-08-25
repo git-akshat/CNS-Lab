@@ -96,7 +96,7 @@ string encrypt(string unique, string key)
 	return cyphertext;
 }
 
-// frequency = (no of occurance of a character / total characters)
+/* frequency = (no of occurance of a character / total characters) */
 /* show frequency of all characters of plain text and cypher text */
 void showFrequency(string pt , string ct){
 	map<char , char > mPlain ; 
