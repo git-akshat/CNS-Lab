@@ -234,3 +234,59 @@ int main()
         cout << "Decrypted Message : " << dmsg << endl;
     }
 }
+
+/********************** Output ********************************
+Enter the number of keys : 2
+key1 : monarchy
+key2 : playfair
+Enter message to be encrypted : balloon
+----------------------------
+Using key1: monarchy
+----------------------------
+Key Matrix:
+m o n a r
+c h y b d
+e f g i k
+l p q s t
+u v w x z
+Actual Message : balloon
+Formatted Message : balxloon
+Encrypted Message : ibsupmna
+----------------------------
+Using key2: playfair
+----------------------------
+Key Matrix:
+p l a y f
+i r b c d
+e g h k m
+n o q s t
+u v w x z
+Actual Message : ibsupmna
+Formatted Message : ibsupmna
+Encrypted Message : rcnxfeqp
+
+-->To Decrypt back the message press 'ENTER' key
+
+----------------------------
+Using key2: playfair
+----------------------------
+Key Matrix:
+p l a y f
+i r b c d
+e g h k m
+n o q s t
+u v w x z
+Message to be decrypted: rcnxfeqp
+Decrypted Message : ibsupmna
+----------------------------
+Using key1: monarchy
+----------------------------
+Key Matrix:
+m o n a r
+c h y b d
+e f g i k
+l p q s t
+u v w x z
+Message to be decrypted: ibsupmna
+Decrypted Message : balxloon
+********************************************************************/
