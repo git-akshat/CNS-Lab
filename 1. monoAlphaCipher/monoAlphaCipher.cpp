@@ -1,14 +1,14 @@
 /*********************************************************************************
-Perform encryption and decryption using mono-alphabetic cipher. 
+Perform encryption and decryption using mono-alphabetic cipher.
 The program should support the following:
 i.  Construct an input file named plaintext.txt (consisting of 1000 alphabets,
-    without any space or special characters) 
+    without any space or special characters)
 ii. Compute key space (Permutation of set of all letters appeared in plaintext.txt:
     there are n! permutations of a set of n elements)
 iii.Encrypt the characters of plaintext.txt using any one key from (ii)
     and store the corresponding ciphertext characters in ciphertext.txt
 iv. Compute the frequency of occurrence of each alphabet in both plaintext.txt
-    and ciphertext.txt and tabulate the results as follows	
+    and ciphertext.txt and tabulate the results as follows
 ***********************************************************************************/
 
 #include<bits/stdc++.h>
@@ -45,7 +45,7 @@ void permute(char a[], int l, int r, vector<string>& keyspace)
 {
 	if(l == r)
 	{
-		keyspace.push_back(a); 
+		keyspace.push_back(a);
 	}
 	else
 	{
@@ -60,7 +60,7 @@ void permute(char a[], int l, int r, vector<string>& keyspace)
 
 vector<string> genKeySpace(string plaintext)
 {
-	set<char> uniqSet; 
+	set<char> uniqSet;
 	vector<string> keyspace; // contains all possible permutation of letters in plaintext
 	int count = 0;
 
@@ -99,7 +99,7 @@ string encrypt(string unique, string key)
 /* frequency = (no of occurance of a character / total characters) */
 /* show frequency of all characters of plain text and cypher text */
 void showFrequency(string pt , string ct){
-	map<char , char > mPlain ; 
+	map<char , char > mPlain ;
 	map<char , char > mCipher ;
 
 	for(int i =0 ;i < pt.length() ; i++){
@@ -119,7 +119,7 @@ void showFrequency(string pt , string ct){
 void showFrequency(string pt , string ct){
 	map<char , char> mPlain ; // frequency of each character of plain text
 	map<char , char> mCipher ; // frequency of each character of plain text
-	map<char , char> pc; 
+	map<char , char> pc;
 
 	for(int i =0 ;i < pt.length() ; i++){
 		mPlain[pt[i]]++ ;
@@ -192,4 +192,5 @@ Frequency               Plaintext Character             Ciphertext character
 0.153846                                s                               w
 0.0769231                               h                               r
 0.153846                                i                               p
+0.0769231                               p                               s
 ***********************************************************************************/
