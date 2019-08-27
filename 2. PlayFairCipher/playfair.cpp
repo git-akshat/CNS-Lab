@@ -1,18 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-char mat[5][5];
+typedef struct{
+	int row;
+	int col;
+}position;
 
+char mat[5][5]; // Global Variable
 
 void generateMatrix(string key)
 {
-	/* to keep tacks of letters that are filled in matrix */
+    /* to keep tacks of letters that are filled in matrix */
 	/* flag = 0 -> letter not present in matrix */
 	/* flag = 1 -> letter present in matrix */
     int flag[26] = {0}; 
-    int x = 0, y = 0;
+	int x = 0, y = 0;
 
-    /* Add all characters present in a given key */
+    /* Add all characters present in the key */
     for(int i=0; i<key.length(); i++)
     {
         if(key[i] == ' ') continue;
@@ -32,29 +36,32 @@ void generateMatrix(string key)
     }
 
     /* Add remaining characters */
-    for(int i=0; i<26; i++)
+    for(char ch = 'a'; ch <= 'z'; ch++)
     {
-        if(i==9)    continue;
-        if(key[i] == 'j') key[i]='i';
+        if(ch == 'j') continue; 
 
-        if(flag[i] == 0)
+        if(flag[ch - 'a'] == 0)
         {
-            mat[x][y++] = i + 'a';
-            flag[i] = 1 ;
+            mat[x][y++] = ch;
+            flag[ch - 'a'] = 1 ;
         }
 
-        if(y==5)    x++, y=0;
+        if(y==5)
+		{
+			x++;
+			y=0;
+		}
     }
 }
 
-/* function to add filler letter(x) */
+/* function to add filler letter('x') */
 string formatMessage(string message)
 {
     for(int i=0; i<message.length(); i++)
     {
         if(message[i] == ' ')
         {
-            message = message.replace(i, 1, "");
+            message = message.replace(i, 1, ""); // remove spaces
         }
 
         if(message[i] == 'j')
@@ -79,22 +86,20 @@ string formatMessage(string message)
     return message;
 }
 
-/* Returns the row position of the character */
-int getRow(char c)
+/* Returns the position of the character */
+position getPosition(char c)
 {
-    for(int i=0;i<5;i++)
-        for(int j=0;j<5;j++)
-            if(c==mat[i][j])
-                return i;
-}
-
-/* Returns the column position of the character */
-int getColumn(char c)
-{
-    for(int i=0;i<5;i++)
-        for(int j=0;j<5;j++)
-            if(c==mat[i][j])
-                return j;
+    for(int i=0; i<5; i++)
+	{
+        for(int j=0; j<5; j++)
+		{
+            if(c == mat[i][j])
+			{
+				position p = {i, j};
+                return p;
+			}
+		}
+	}
 }
 
 string encrypt(string message)
@@ -102,10 +107,12 @@ string encrypt(string message)
     string ctext;
     for(int i=0; i<message.length(); i+=2)    // i is incremented by 2 inorder to group by two two characters
     {
-        int x1 = getRow(message[i]);
-        int x2 = getRow(message[i+1]);
-        int y1 = getColumn(message[i]);
-        int y2 = getColumn(message[i+1]);
+		position p1 = getPosition(message[i]);
+		position p2 = getPosition(message[i+1]);
+        int x1 = p1.row;
+        int x2 = p2.row;
+        int y1 = p1.col;
+        int y2 = p2.col;
 
         if( x1 == x2 )
         {
@@ -134,10 +141,12 @@ string Decrypt(string message)
     string msg;
     for(int i=0; i<message.length(); i+=2)
     {
-        int x1 = getRow(message[i]);
-        int x2 = getRow(message[i+1]);
-        int y1 = getColumn(message[i]);
-        int y2 = getColumn(message[i+1]);
+        position p1 = getPosition(message[i]);
+		position p2 = getPosition(message[i+1]);
+        int x1 = p1.row;
+        int x2 = p2.row;
+        int y1 = p1.col;
+        int y2 = p2.col;
 
         if( x1 == x2 )
         {
