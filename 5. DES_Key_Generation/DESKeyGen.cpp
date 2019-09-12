@@ -21,30 +21,29 @@ int permChoiceTwo[] = {
 
 int leftShiftTable[] = {1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1};
 
-
 string rotateSubKey(string s , int rot) // rot is the number of left shift rotation
 {
-	return s.substr(rot, s.length()-rot) + s.substr(0, rot) ;
+    return s.substr(rot, s.length()-rot) + s.substr(0, rot) ;
 }
 
 string firstPermute(string input)
 {
- 	string res = "" ;
-	for(int i=0 ; i<56 ; i++)
+    string res = "" ;
+    for(int i=0 ; i<56 ; i++)
     {
         res += input[permChoiceOne[i]-1];
     }
-	return res ;
+    return res ;
 }
 
 string secondPermute(string input)
 {
- 	string res = "" ;
-	for(int i=0 ; i<48 ; i++)
+    string res = "" ;
+    for(int i=0 ; i<48 ; i++)
     {
         res += input[permChoiceTwo[i]-1];
     }
-	return res ;
+    return res ;
 }
 
 void genKeys(string left, string right)
@@ -61,25 +60,25 @@ void genKeys(string left, string right)
 
         cout << "key " << i+1 << " \t: " << key << endl; // display
         fout << key << endl; // save to file
-   }
+    }
 }
 
+int main()
+{
+    unsigned long long hexkey;
+    cout << "\nEnter key in hexadecimal : " ;
+    cin >> hex >> hexkey; // to read hex input cin >> hex >> input
 
-int main(){
-	unsigned long long hexkey;
-	cout << "\nEnter key in hexadecimal : " ;
-	cin >> hex >> hexkey; // to read hex input cin >> hex >> input
+    string key = bitset<64>(hexkey).to_string(); // to convert hex to binary string
+    cout << "Binary key (k) \t: " << key << endl;
 
-	string key = bitset<64>(hexkey).to_string(); // to convert hex to binary string
-	cout << "Binary key (k) \t: " << key << endl;
+    key = firstPermute(key) ;
+    cout <<  "PC-1 key (k+) \t: " << key << endl;
 
-	key = firstPermute(key) ;
-	cout <<  "PC-1 key (k+) \t: " << key << endl;
+    cout << "\nSubKeys: " << endl;
+    genKeys(key.substr(0,28) , key.substr(28,56));
 
-	cout << "\nSubKeys: " << endl;
-	genKeys(key.substr(0,28) , key.substr(28,56));
-
-	cout<<endl<<endl ;
+    cout<<endl<<endl ;
 }
 
 
