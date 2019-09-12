@@ -43,7 +43,6 @@ int findDetInverse(int R , int D = 26) // R is the remainder or determinant
 		}
 		i++ ;
 	}
-
 	return p[i] = mod26(p[i-2] - p[i-1]*q[i-2]) ; 
 }
 
@@ -78,7 +77,6 @@ void findInverse(int m[3][3] , int n , int m_inverse[3][3] )
 		adj[0][1] = -m[0][1];
 		adj[1][0] = -m[1][0];
 	}
-
 	else if(n==3)
 	{
 		int temp[5][5] = {0} ;
@@ -94,7 +92,6 @@ void findInverse(int m[3][3] , int n , int m_inverse[3][3] )
 				else if(i>=3) temp[i][j] = m[i-3][j] ;
 			}
 		}
-
 		/* except first row and column, multiply elements along rows and place them along columns */
 		for(int i=1; i<=3 ; i++)
 		{
@@ -136,7 +133,7 @@ string encrypt(string pt, int n)
 		}
 	}
 
- // multiplyMatrices(mat_a , row_a , col_a , mat_b, row_b, col_b , mat_result)
+	// multiplyMatrices(mat_a , row_a , col_a , mat_b, row_b, col_b , mat_result)
 	multiplyMatrices(P, row , n , key , n , n , C) ; 
 
 	string ct = "" ; 
@@ -168,10 +165,10 @@ string decrypt(string ct, int n)
 	}
 
 	int k_inverse[3][3] = {0};
- /* findInverse(matrix , order_of_matrix , result_matrix) */
+	/* findInverse(matrix , order_of_matrix , result_matrix) */
 	findInverse(key, n , k_inverse);
 
- /* multiplyMatrices(mat_a , row_a , col_a , mat_b, row_b, col_b , mat_result) */
+	/* multiplyMatrices(mat_a , row_a , col_a , mat_b, row_b, col_b , mat_result) */
 	multiplyMatrices(C, row , n , k_inverse , n , n , P) ; 
 
 	string pt = "" ; 
@@ -182,7 +179,6 @@ string decrypt(string ct, int n)
 			pt += (P[i][j] + 'a');
 		}
 	}
-
 	return pt ; 
 }
 
