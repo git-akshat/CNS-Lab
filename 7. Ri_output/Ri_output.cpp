@@ -151,8 +151,8 @@ int main()
 
 /******************************* Output-1 ***********************************************
 
-akshat@pop-os:~/Downloads/Telegram Desktop$ g++ R_output.cpp 
-akshat@pop-os:~/Downloads/Telegram Desktop$ ./a.out
+akshat@pop-os:~/Desktop/CNS-Lab/7. Ri_output$ g++ Ri_output.cpp
+akshat@pop-os:~/Desktop/CNS-Lab/7. Ri_output$ ./a.out 
 
 Enter 48 bit input for S-Box in hex : 6117BA866527
 Enter 64-bit (i-1)th round output in hex : cc00ccfff0aaf0aa
@@ -161,10 +161,9 @@ S-Box Input : 011000010001011110111010100001100110010100100111
 Output of Round(i-1) : 1100110000000000110011001111111111110000101010101111000010101010
 
 Li_1 = 11001100000000001100110011111111
-S-Box output = 101111010001110111110100110
-Permuted output = 101011100111001010101111011
+S-Box output = 01011110100011100011111010010010
+Permuted output = 01110010011010101001000111011011
 
-Output of ith round (Ri) = 01101011100111101001111000100100
-
+Output of ith round (Ri) = 10111110011010100101110100100100
 
 *****************************************************************************************/
