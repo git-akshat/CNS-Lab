@@ -5,7 +5,7 @@ int key[3][3] ;
 
 int mod26(int x)
 {
-	return x >= 0 ? (x%26) : 26-(abs(x)%26) ; 
+	return x >= 0 ? (x%26) : 26-(abs(x)%26) ;
 }
 
 /* findDet(matrix , order_of_matrix) */
@@ -28,7 +28,7 @@ int findDet(int m[3][3] , int n)
 int findDetInverse(int R , int D = 26) // R is the remainder or determinant
 {
 	int i = 0 ;
-	int p[100] = {0,1}; 
+	int p[100] = {0,1};
 	int q[100] = {0} ; // quotient
 
 	while(R!=0)
@@ -36,14 +36,15 @@ int findDetInverse(int R , int D = 26) // R is the remainder or determinant
 		q[i] = D/R ;
 		int oldD = D ;
 		D = R ;
-		R = oldD%R ;  
+		R = oldD%R ;
 		if(i>1)
 		{
-			p[i] = mod26(p[i-2] - p[i-1]*q[i-2]) ; 
+			p[i] = mod26(p[i-2] - p[i-1]*q[i-2]) ;
 		}
 		i++ ;
 	}
-	return p[i] = mod26(p[i-2] - p[i-1]*q[i-2]) ; 
+	if (i == 1) return p[i] == 1;
+	else return p[i] = mod26(p[i-2] - p[i-1]*q[i-2]) ;
 }
 
 void multiplyMatrices(int a[1000][3] , int a_rows , int a_cols ,  int b[1000][3] , int b_rows , int b_cols , int res[1000][3])
@@ -64,7 +65,7 @@ void multiplyMatrices(int a[1000][3] , int a_rows , int a_cols ,  int b[1000][3]
 /* Inverse = (matrix * detInverse) mod 26 */
 /* findInverse(matrix , order_of_matrix , result_matrix) */
 void findInverse(int m[3][3] , int n , int m_inverse[3][3] )
-{		
+{
 	int adj[3][3] = {0};
 
 	int det = findDet(m , n); // findDet(matrix , order_of_matrix)
@@ -106,12 +107,12 @@ void findInverse(int m[3][3] , int n , int m_inverse[3][3] )
 	{
 		for(int j=0; j<n ; j++)
 		{
-			m_inverse[i][j] = mod26(adj[i][j] * detInverse) ; 
+			m_inverse[i][j] = mod26(adj[i][j] * detInverse) ;
 		}
 	}
 }
 
-// C = PK 
+// C = PK
 string encrypt(string pt, int n)
 {
 	int P[1000][3] = {0} ; // plaintext
@@ -120,7 +121,7 @@ string encrypt(string pt, int n)
 
 	while(pt.length()%n != 0)
 	{
-		pt += "x" ;  // pad extra x 
+		pt += "x" ;  // pad extra x
 	}
 
 	int row = (pt.length())/n; // number of rows in P
@@ -129,14 +130,14 @@ string encrypt(string pt, int n)
 	{
 		for(int j=0; j<n; j++)
 		{
-			P[i][j] = pt[ptIter++]-'a' ; 
+			P[i][j] = pt[ptIter++]-'a' ;
 		}
 	}
 
 	// multiplyMatrices(mat_a , row_a , col_a , mat_b, row_b, col_b , mat_result)
-	multiplyMatrices(P, row , n , key , n , n , C) ; 
+	multiplyMatrices(P, row , n , key , n , n , C) ;
 
-	string ct = "" ; 
+	string ct = "" ;
 	for(int i=0 ; i<row ; i++)
 	{
 		for(int j=0 ; j<n ;j++)
@@ -144,10 +145,10 @@ string encrypt(string pt, int n)
 			ct += (C[i][j] + 'a');
 		}
 	}
-	return ct ; 
+	return ct ;
 }
 
-// P = C*(k_inverse) 
+// P = C*(k_inverse)
 string decrypt(string ct, int n)
 {
 	int P[1000][3] = {0} ; // plaintext
@@ -160,7 +161,7 @@ string decrypt(string ct, int n)
 	{
 		for(int j=0; j<n; j++)
 		{
-			C[i][j] = ct[ctIter++]-'a' ; 
+			C[i][j] = ct[ctIter++]-'a' ;
 		}
 	}
 
@@ -169,9 +170,9 @@ string decrypt(string ct, int n)
 	findInverse(key, n , k_inverse);
 
 	/* multiplyMatrices(mat_a , row_a , col_a , mat_b, row_b, col_b , mat_result) */
-	multiplyMatrices(C, row , n , k_inverse , n , n , P) ; 
+	multiplyMatrices(C, row , n , k_inverse , n , n , P) ;
 
-	string pt = "" ; 
+	string pt = "" ;
 	for(int i = 0 ; i<row ; i++)
 	{
 		for(int j=0 ; j<n ; j++)
@@ -179,7 +180,7 @@ string decrypt(string ct, int n)
 			pt += (P[i][j] + 'a');
 		}
 	}
-	return pt ; 
+	return pt ;
 }
 
 int main(void)
@@ -198,13 +199,13 @@ int main(void)
 	{
 		for(int j=0; j<n; j++)
 		{
-			cin >> key[i][j];  
+			cin >> key[i][j];
 		}
 	}
 
 	cout << "\nOriginal text  : " << pt << endl;
 
-	string ct = encrypt(pt, n) ; 
+	string ct = encrypt(pt, n) ;
 	cout << "Encrypted text : " << ct << endl;
 
 	string dt = decrypt(ct, n);
