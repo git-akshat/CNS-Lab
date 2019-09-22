@@ -76,7 +76,7 @@ int main()
     cout <<  "PC-1 key (k+) \t: " << key << endl;
 
     cout << "\nSubKeys: " << endl;
-    genKeys(key.substr(0,28) , key.substr(28,56));
+    genKeys(key.substr(0,28) , key.substr(28,28));
 
     cout<<endl<<endl ;
 }
