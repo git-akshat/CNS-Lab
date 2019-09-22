@@ -51,15 +51,15 @@ int permTable[] = {
     2 , 8 , 24, 14, 32, 27, 3 , 9 ,
     19, 13, 30, 6 , 22, 11, 4 , 25 };
 
-string DecToBin(int dec)
+string DecToBin(int dec) 
 {
     string bin = ""; // binary
-    while( dec > 0)
+    for(int i=0; i<4; i++) // 4-bit binary
     {
         bin += (char) dec%2 + '0';
         dec = dec/2;
     }
-    reverse(bin.begin() , bin.end()); // inbuilt function
+    reverse(bin.begin(), bin.end()); // inbuilt function
     return bin;
 }
 
