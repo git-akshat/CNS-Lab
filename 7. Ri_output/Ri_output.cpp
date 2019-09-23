@@ -51,12 +51,12 @@ int permTable[] = {
     2 , 8 , 24, 14, 32, 27, 3 , 9 ,
     19, 13, 30, 6 , 22, 11, 4 , 25 };
 
-string DecToBin(int dec) 
+string DecToBin(int dec)
 {
     string bin = ""; // binary
-    for(int i=0; i<4; i++) // 4-bit binary
+    for(int i=0; i<4; i++) // to generate 4-bit binary
     {
-        bin += (char) dec%2 + '0';
+        bin += (char) (dec%2 + '0');
         dec = dec/2;
     }
     reverse(bin.begin(), bin.end()); // inbuilt function
@@ -81,13 +81,18 @@ int BinToDec(string bin)
 
 string substitution(string input)
 {
-    string res = "";
+    string res = ""; // to store final s-box output
     for(int i=0; i<8; i++)
     {
         string sInput = input.substr(6*i, 6) ;
         int row = BinToDec( sInput.substr(0,1) + sInput.substr(5,1) ) ;
         int col = BinToDec( sInput.substr(1,4) ) ;
-        res += DecToBin(sBoxes[i][row*15+col]) ;
+        res += DecToBin(sBoxes[i][row*16+col]) ;
+
+        // To display individual s-box input and output un-comment this block
+        // string value = "";
+        // value = DecToBin(sBoxes[i][row*16+col]) ;
+        // cout << "sbox-" << i+1 <<  ": \t" << sInput << "\t\t" << value << endl;
     }
     return res;
 }
@@ -136,10 +141,10 @@ int main()
     cout << "Output of Round(i-1) : " << input << endl;
 
     string Li_1 = input.substr(0,32);
-    cout << "\nLi_1 = " << Li_1 << endl;
+    cout << "Li_1 = " << Li_1 << endl;
 
     string sBoxOutput = substitution(sBoxinput);
-    cout << "S-Box output = " << sBoxOutput << endl;
+    cout << "\nS-Box output = " << sBoxOutput << endl;
 
     string P = permute(sBoxOutput);
     cout << "Permuted output = " << P << endl;
@@ -150,20 +155,18 @@ int main()
 }
 
 /******************************* Output-1 ***********************************************
+cnslaba1@linux-HP-Pro-3090-Microtower-PC:~/akshat/output_Ri$ g++ main.cpp
+cnslaba1@linux-HP-Pro-3090-Microtower-PC:~/akshat/output_Ri$ ./a.out
 
-akshat@pop-os:~/Desktop/CNS-Lab/7. Ri_output$ g++ Ri_output.cpp
-akshat@pop-os:~/Desktop/CNS-Lab/7. Ri_output$ ./a.out 
-
-Enter 48 bit input for S-Box in hex : 6117BA866527
+Enter 48 bit input for S-Box in hex : 6117ba866527
 Enter 64-bit (i-1)th round output in hex : cc00ccfff0aaf0aa
 
 S-Box Input : 011000010001011110111010100001100110010100100111
 Output of Round(i-1) : 1100110000000000110011001111111111110000101010101111000010101010
-
 Li_1 = 11001100000000001100110011111111
-S-Box output = 01011110100011100011111010010010
-Permuted output = 01110010011010101001000111011011
 
-Output of ith round (Ri) = 10111110011010100101110100100100
+S-Box output = 01011100100000101011010110010111
+Permuted output = 00100011010010101010100110111011
 
+Output of ith round (Ri) = 11101111010010100110010101000100
 *****************************************************************************************/
