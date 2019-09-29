@@ -42,7 +42,7 @@ int findDetInverse(int R , int D = 26) // R is the remainder or determinant
 		}
 		i++ ;
 	}
-	if (i == 1) return p[i] == 1;
+	if (i == 1) return p[i]=1;
 	else return p[i] = mod26(p[i-2] - p[i-1]*q[i-2]) ;
 }
 

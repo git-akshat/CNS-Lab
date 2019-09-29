@@ -14,7 +14,7 @@ void generateMatrix(string key)
 	/* flag = 0 -> letter not already present in matrix */
 	/* flag = 1 -> letter already present in matrix */
     int flag[26] = {0};
-	int x = 0, y = 0;
+    int x = 0, y = 0;
 
     /* Add all characters present in the key */
     for(int i=0; i<key.length(); i++)
@@ -49,15 +49,15 @@ string formatMessage(string msg)
 {
     for(int i=0; i<msg.length(); i++)
     {
-        if(msg[i] == ' ') msg.erase(i, 1); // remove spaces
+        if(msg[i] == ' ')  msg.erase(i, 1); // remove spaces
         if(msg[i] == 'j')  msg[i] = 'i';
     }
 
     for(int i=1; i<msg.length(); i+=2)
     {
-        if(msg[i-1] == msg[i]) msg.insert(i, "x");
+        if(msg[i-1] == msg[i])  msg.insert(i, "x");
     }
-
+    
     if(msg.length()%2 != 0)  msg += "x";
     return msg;
 }
