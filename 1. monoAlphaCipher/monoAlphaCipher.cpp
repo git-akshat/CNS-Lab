@@ -18,12 +18,12 @@ using namespace std;
 char uniqtext[26]; // Global variable
 
 /* read plain text from plaintext.txt file */
-string readPlainText(const char* fname="plaintext.txt")
+string readPlainText()
 {
 	ifstream fin;
 	string ptext;
 
-	fin.open(fname);
+	fin.open("plaintext.txt");
 	fin >> ptext;
 	fin.close();
 
@@ -31,16 +31,16 @@ string readPlainText(const char* fname="plaintext.txt")
 }
 
 /* write cipher text to ciphertext.txt file */
-void writecipherText(string ctext, const char*  fname="ciphertext.txt")
+void writecipherText(string ctext)
 {
 	ofstream fout;
-	fout.open(fname);
+	fout.open("ciphertext.txt");
 	fout << ctext;
 	fout.close();
 }
 
 /* function to find all possible permutation */
-void permute(char a[], int l, int r, vector<string>& keyspace)
+void permute(char a[], int l, int r, vector<string>& keyspace) // keyspace is passed by reference
 {
 	if(l == r)
 	{
@@ -105,7 +105,6 @@ void showFrequency(string pt , string ct)
 		mPlain[pt[i]]++ ;
 		mCipher[ct[i]]++ ;
 	}
-
 	cout<<"\nFrequency\t\tPlaintext Character\t\tCiphertext character" <<endl;
 	cout<<"=========\t\t===================\t\t====================" <<endl;
 	for(int i=0 ; i<pt.length() ; i++)

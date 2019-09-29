@@ -51,43 +51,15 @@ int permTable[] = {
     2 , 8 , 24, 14, 32, 27, 3 , 9 ,
     19, 13, 30, 6 , 22, 11, 4 , 25 };
 
-string DecToBin(int dec)
-{
-    string bin = ""; // binary
-    for(int i=0; i<4; i++) // to generate 4-bit binary
-    {
-        bin += (char) (dec%2 + '0');
-        dec = dec/2;
-    }
-    reverse(bin.begin(), bin.end()); // inbuilt function
-    return bin;
-}
-
-int BinToDec(string bin)
-{
-    int dec = 0; // decimal
-    int base = 1; // power of 2 variable
-
-    for(int i = bin.length()-1 ; i>=0 ; i--)
-    {
-        if(bin[i] == '1')
-        {
-            dec += base;
-        }
-        base = base * 2;
-    }
-    return dec;
-}
-
 string substitution(string input)
 {
     string res = ""; // to store final s-box output
     for(int i=0; i<8; i++)
     {
         string sInput = input.substr(6*i, 6) ;
-        int row = BinToDec( sInput.substr(0,1) + sInput.substr(5,1) ) ;
-        int col = BinToDec( sInput.substr(1,4) ) ;
-        res += DecToBin(sBoxes[i][row*16+col]) ;
+        int row = bitset<2>( sInput.substr(0,1) + sInput.substr(5,1) ).to_ulong() ;
+        int col = bitset<4>( sInput.substr(1,4) ).to_ulong() ;
+        res += bitset<4>(sBoxes[i][row*16+col]).to_string() ;
 
         // To display individual s-box input and output un-comment this block
         // string value = "";
@@ -143,7 +115,6 @@ int main()
     cout << "Permuted output = " << P << endl;
 
     string Ri = XOR(P, Li_1); // P is permuted string and Li_1 is left half output of (i-1)th round
-
     cout << "\nOutput of ith round (Ri) = " << Ri << endl << endl;
 }
 

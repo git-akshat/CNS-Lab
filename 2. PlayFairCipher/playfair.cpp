@@ -27,11 +27,7 @@ void generateMatrix(string key)
             mat[x][y++] = key[i];
             flag[key[i]-'a'] = 1;
         }
-        if(y==5)
-        {
-            x++;
-            y=0;
-        }
+        if(y==5) x++, y=0;
     }
 
     /* Add remaining characters */
@@ -44,58 +40,38 @@ void generateMatrix(string key)
             mat[x][y++] = ch;
             flag[ch - 'a'] = 1 ;
         }
-        if(y==5)
-		{
-			x++;
-			y=0;
-		}
+        if(y==5) x++, y=0;
     }
 }
 
 /* function to add filler letter('x') */
-string formatMessage(string message)
+string formatMessage(string msg)
 {
-    for(int i=0; i<message.length(); i++)
+    for(int i=0; i<msg.length(); i++)
     {
-        if(message[i] == ' ')
-        {
-            message = message.replace(i, 1, ""); // remove spaces
-        }
-        if(message[i] == 'j')
-        {
-            message[i] = 'i';
-        }
+        if(msg[i] == ' ') msg.erase(i, 1); // remove spaces
+        if(msg[i] == 'j')  msg[i] = 'i';
     }
 
-    for(int i=1; i<message.length(); i+=2)
+    for(int i=1; i<msg.length(); i+=2)
     {
-        if(message[i-1] == message[i])
-        {
-            message = message.insert(i, "x");
-        }
+        if(msg[i-1] == msg[i]) msg.insert(i, "x");
     }
 
-    if(message.length()%2 != 0)
-    {
-        message += "x";
-    }
-    return message;
+    if(msg.length()%2 != 0)  msg += "x";
+    return msg;
 }
 
 /* Returns the position of the character */
 position getPosition(char c)
 {
     for(int i=0; i<5; i++)
-	{
         for(int j=0; j<5; j++)
-        {
             if(c == mat[i][j])
             {
                 position p = {i, j};
                 return p;
             }
-        }
-    }
 }
 
 string encrypt(string message)

@@ -3,12 +3,13 @@ using namespace std ;
 
 string encrypt(string pt , string key)
 {
+    string ct = ""; // ciphertext
     int k = 0; // plaintext iterator
+
     int num_row = ceil((float)pt.length() / key.length());
     int num_col = key.length();
     char mat[num_row][num_col];
-    string ct = ""; // ciphertext
-
+    
     cout << "\nEncryption Matrix :" << endl;
     cout << "---------------------" << endl;
     for(int i=0; i<num_row ; i++)
@@ -26,7 +27,6 @@ string encrypt(string pt , string key)
         }
         cout << endl;
     }
-
     for(int i=0; i<num_col; i++)
     {
         for(int j=0; j<num_row; j++)
@@ -34,17 +34,17 @@ string encrypt(string pt , string key)
             ct += mat[j][key.find(i+'1')];
         }
     }
-
     return ct;
 }
 
 string decrypt(string ct , string key)
 {
+    string pt = ""; // plaintext
     int k = 0; // ciptext iterator
+
     int num_row = ct.length() / key.length();
     int num_col = key.length();
     char mat[num_row][num_col];
-    string pt = ""; // plaintext
 
     for(int i=0; i<num_col; i++)
     {
@@ -65,7 +65,6 @@ string decrypt(string ct , string key)
         }
         cout << endl;
     }
-
     return pt;
 }
 

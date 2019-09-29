@@ -1,7 +1,6 @@
 /* Author : AKSHAT AGARWAL */
 
 #include <bits/stdc++.h>
-
 using namespace std;
 
 int expPermute[] = {
@@ -64,7 +63,7 @@ int main()
 	// unsigned long long hexKey;
 	//cout << "Enter 48 bit key for ith round: " ;
 	//cin >> hex >> hexKey;
-	//string Ki = bitset<48>(hexKey).to_string();
+	//Ki = bitset<48>(hexKey).to_string();
 
 	cout << "\n64-bit Binary Input = " << input << endl ;
 	cout << "key for ith round (Ki) = " << Ki << endl ;
