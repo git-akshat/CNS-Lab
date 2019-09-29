@@ -30,11 +30,10 @@ string readPlainText(const char* fname="plaintext.txt")
 	return ptext;
 }
 
-/* write cypher text to cyphertext.txt file */
-void writeCypherText(string ctext, const char*  fname="cyphertext.txt")
+/* write cipher text to ciphertext.txt file */
+void writecipherText(string ctext, const char*  fname="ciphertext.txt")
 {
 	ofstream fout;
-
 	fout.open(fname);
 	fout << ctext;
 	fout.close();
@@ -77,44 +76,45 @@ vector<string> genKeySpace(string plaintext)
 	}
 
 	permute(uniqtext, 0, strlen(uniqtext)-1, keyspace);
-
 	return keyspace;
 }
 
-/* create cypher text using key */
+/* create cipher text using key */
 string encrypt(string unique, string key)
 {
 	string plaintext = readPlainText();
-	string cyphertext = "";
+	string ciphertext = "";
 
 	for(int i=0; i < plaintext.length(); i++)
 	{
 		int idx = unique.find(plaintext[i]);
-		cyphertext += key[idx];
+		ciphertext += key[idx];
 	}
-
-	return cyphertext;
+	return ciphertext;
 }
 
-/* frequency = (no of occurance of a character / total characters) */
-/* show frequency of all characters of plain text and cypher text */
-void showFrequency(string pt , string ct){
-	map<char , char > mPlain ;
-	map<char , char > mCipher ;
+/* frequency = (no of occurance of a character / length of text) */
+/* show frequency of all characters of plain text and cipher text */
+void showFrequency(string pt , string ct)
+{
+	map<char , int > mPlain ;
+	map<char , int > mCipher ;
 
-	for(int i =0 ;i < pt.length() ; i++){
+	for(int i =0 ;i < pt.length() ; i++)
+	{
 		mPlain[pt[i]]++ ;
 		mCipher[ct[i]]++ ;
 	}
 
 	cout<<"\nFrequency\t\tPlaintext Character\t\tCiphertext character" <<endl;
 	cout<<"=========\t\t===================\t\t====================" <<endl;
-	for(int i =0 ;i < pt.length() ; i++){
+	for(int i=0 ; i<pt.length() ; i++)
+	{
 		cout<< (float)mPlain[pt[i]]/pt.length() << "\t\t\t\t" << pt[i] << "\t\t\t\t" << ct[i] << endl ;
 	}
 }
 
-/* show frequency of only unique characters of plain text and cypher text */
+/* show frequency of only unique characters of plain text and cipher text */
 /*
 void showFrequency(string pt , string ct){
 	map<char , char> mPlain ; // frequency of each character of plain text
@@ -143,15 +143,14 @@ int main()
 	cout<<"Plain text = \t" << plaintext << endl;
 
 	vector<string> keyspace = genKeySpace(plaintext);
-
 	string key = keyspace[rand()%keyspace.size()];
 
 	cout<<"Unique chars = \t" << uniqtext <<endl;
 	cout<<"Chosen key = \t" << key <<endl;
 
-	string cyphertext = encrypt(uniqtext , key) ;
-	writeCypherText(cyphertext) ;
-	showFrequency(plaintext , cyphertext) ;
+	string ciphertext = encrypt(uniqtext , key) ;
+	writecipherText(ciphertext) ;
+	showFrequency(plaintext , ciphertext) ;
 }
 
 

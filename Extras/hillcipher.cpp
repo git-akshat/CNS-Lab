@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std ;
 
-int key[3][3] ; // Global 
+int key[3][3] ;
 
 int mod26(int x)
 {
@@ -21,6 +21,7 @@ int findDet(int m[3][3] , int n)
 		det = m[0][0]*(m[1][1]*m[2][2] - m[1][2]*m[2][1])  - m[0][1]*(m[1][0]*m[2][2] - m[2][0]*m[1][2] ) + m[0][2]*(m[1][0]*m[2][1] - m[1][1]*m[2][0]);
 	}
 	else det = 0 ; // invalid input
+
 	return mod26(det);
 }
 
@@ -42,8 +43,9 @@ int findDetInverse(int R , int D = 26) // R is the remainder or determinant
 		}
 		i++ ;
 	}
-	if (i == 1) return p[i] == 1;
+	if(i==1) return p[i]=1;
 	else return p[i] = mod26(p[i-2] - p[i-1]*q[i-2]) ;
+
 }
 
 void multiplyMatrices(int a[1000][3] , int a_rows , int a_cols ,  int b[1000][3] , int b_rows , int b_cols , int res[1000][3])
@@ -80,12 +82,16 @@ void findInverse(int m[3][3] , int n , int m_inverse[3][3] )
 	else if(n==3)
 	{
 		int temp[5][5] = {0} ;
+
 		// fill the 5x5 matrix
 		for(int i=0; i<5; i++)
 		{
 			for(int j=0; j<5; j++)
 			{
-				temp[i][j] = m[i%3][j%3] ;
+				if(i<3 && j<3) temp[i][j] = m[i][j] ;
+				else if(i>=3 && j>=3) temp[i][j] = temp[i][j-3] ;
+				else if(j>=3) temp[i][j] = m[i][j-3] ;
+				else if(i>=3) temp[i][j] = m[i-3][j] ;
 			}
 		}
 		/* except first row and column, multiply elements along rows and place them along columns */
@@ -118,6 +124,7 @@ string encrypt(string pt, int n)
 	{
 		pt += "x" ;  // pad extra x
 	}
+
 	int row = (pt.length())/n; // number of rows in P
 
 	for(int i=0; i<row ; i++)
@@ -179,10 +186,10 @@ string decrypt(string ct, int n)
 
 int main(void)
 {
-	string pt ;
 	int n ;
+	string pt ;
 
-	cout << "Enter the text to be encrypted    : " ;
+	cout << "Enter the text to be decrypted    : " ;
 	cin >> pt;
 
 	cout << "Enter number of rows in keymatrix : ";
@@ -199,11 +206,11 @@ int main(void)
 
 	cout << "\nOriginal text  : " << pt << endl;
 
-	string ct = encrypt(pt, n) ;
-	cout << "Encrypted text : " << ct << endl;
+	string ct = decrypt(pt, n) ;
+	cout << "Decrypted text : " << ct << endl;
 
-	string dt = decrypt(ct, n);
-	cout << "Decrypted text : " << dt << endl;
+	//string dt = decrypt(ct, n);
+	//cout << "Decrypted text : " << dt << endl;
 }
 
 /******************* OUTPUT-1 ****************************

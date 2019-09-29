@@ -11,23 +11,22 @@ char mat[5][5]; // Global Variable
 void generateMatrix(string key)
 {
     /* to keep tacks of letters that are filled in matrix */
-	/* flag = 0 -> letter not present in matrix */
-	/* flag = 1 -> letter present in matrix */
-    int flag[26] = {0}; 
+	/* flag = 0 -> letter not already present in matrix */
+	/* flag = 1 -> letter already present in matrix */
+    int flag[26] = {0};
 	int x = 0, y = 0;
 
     /* Add all characters present in the key */
     for(int i=0; i<key.length(); i++)
     {
         if(key[i] == ' ') continue;
-        if(key[i] == 'j') key[i] = 'i'; // i and j are filled at same position 
+        if(key[i] == 'j') key[i] = 'i'; // i and j are filled at same position
 
         if(flag[key[i]-'a'] == 0)
         {
             mat[x][y++] = key[i];
             flag[key[i]-'a'] = 1;
         }
-
         if(y==5)
         {
             x++;
@@ -38,14 +37,13 @@ void generateMatrix(string key)
     /* Add remaining characters */
     for(char ch = 'a'; ch <= 'z'; ch++)
     {
-        if(ch == 'j') continue; 
+        if(ch == 'j') continue;
 
         if(flag[ch - 'a'] == 0)
         {
             mat[x][y++] = ch;
             flag[ch - 'a'] = 1 ;
         }
-
         if(y==5)
 		{
 			x++;
@@ -63,7 +61,6 @@ string formatMessage(string message)
         {
             message = message.replace(i, 1, ""); // remove spaces
         }
-
         if(message[i] == 'j')
         {
             message[i] = 'i';
@@ -82,7 +79,6 @@ string formatMessage(string message)
     {
         message += "x";
     }
-
     return message;
 }
 
@@ -92,14 +88,14 @@ position getPosition(char c)
     for(int i=0; i<5; i++)
 	{
         for(int j=0; j<5; j++)
-		{
+        {
             if(c == mat[i][j])
-			{
-				position p = {i, j};
+            {
+                position p = {i, j};
                 return p;
-			}
-		}
-	}
+            }
+        }
+    }
 }
 
 string encrypt(string message)
@@ -119,13 +115,11 @@ string encrypt(string message)
             ctext.append(1, mat[x1][(y1+1)%5]);
             ctext.append(1, mat[x2][(y2+1)%5]);
         }
-
         else if( y1 == y2 )
         {
             ctext.append(1, mat[ (x1+1)%5 ][ y1 ]);
             ctext.append(1, mat[ (x2+1)%5 ][ y2 ]);
         }
-
         else
         {
             ctext.append(1, mat[ x1 ][ y2 ]);
@@ -153,13 +147,11 @@ string Decrypt(string message)
             msg.append(1, mat[x1][ --y1<0 ? 4: y1 ]);
             msg.append(1, mat[x2][ --y2<0 ? 4: y2 ]);
         }
-
         else if( y1 == y2 )
         {
             msg.append(1, mat[ --x1<0 ? 4: x1 ][y1]);
             msg.append(1, mat[ --x2<0 ? 4: x2 ][y2]);
         }
-
         else
         {
             msg.append(1, mat[ x1 ][ y2 ]);
@@ -179,7 +171,7 @@ int main()
 
     cout << "Enter number of keys : ";
     cin >> n;
-    cin.get();
+    cin.get(); // to remove '\n'
 
     string key[n];
 
@@ -199,7 +191,7 @@ int main()
             }
             cout << endl;
         }
-    
+
         cout << "Actual Message \t\t: " << plaintext << endl;
 
         string fmsg = formatMessage(plaintext);

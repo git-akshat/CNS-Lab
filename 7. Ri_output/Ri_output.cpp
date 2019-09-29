@@ -109,19 +109,12 @@ string permute(string input)
 
 string XOR(string input1, string input2)
 {
-    string res = "";
-    for(int i=0; i<input1.length(); i++)
-    {
-        if(input1[i] == input2[i])
-        {
-            res += "0";
-        }
-        else
-        {
-            res += "1";
-        }
-    }
-    return res;
+	string res = "";
+	for(int i=0; i<input1.length(); i++)
+	{
+		res += (input1[i] == input2[i]) ? "0" : "1";
+	}
+	return res;
 }
 
 int main()

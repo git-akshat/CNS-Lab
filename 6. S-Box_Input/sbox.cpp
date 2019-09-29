@@ -29,21 +29,14 @@ string XOR(string input1, string input2)
 	string res = "";
 	for(int i=0; i<input1.length(); i++)
 	{
-		if(input1[i] == input2[i])
-		{
-			res += "0";
-		}
-		else
-		{
-			res += "1";
-		}
+		res += (input1[i] == input2[i]) ? "0" : "1";
 	}
 	return res;
 }
 
 int main()
 {
-	int i; // round i 
+	int i; // round i
 	unsigned long long hexInput;
 	string Ki; // ith round key
 	ifstream fin;
@@ -88,8 +81,8 @@ int main()
 
 /******************************* Output-1 ***********************************************
 
-akshat@pop-os:~/Downloads/Telegram Desktop$ g++ sbox.cpp 
-akshat@pop-os:~/Downloads/Telegram Desktop$ ./a.out 
+akshat@pop-os:~/Downloads/Telegram Desktop$ g++ sbox.cpp
+akshat@pop-os:~/Downloads/Telegram Desktop$ ./a.out
 
 Enter Round number (i) : 1
 Enter 64-bit (i-1)th round output in hex: cc00ccfff0aaf0aa

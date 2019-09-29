@@ -27,11 +27,11 @@ string encrypt(string pt , string key)
         cout << endl;
     }
 
-    for(int i=1; i<=num_col; i++)
+    for(int i=0; i<num_col; i++)
     {
         for(int j=0; j<num_row; j++)
         {
-            ct += mat[j][key.find(i+'0')];
+            ct += mat[j][key.find(i+'1')];
         }
     }
 
@@ -46,11 +46,11 @@ string decrypt(string ct , string key)
     char mat[num_row][num_col];
     string pt = ""; // plaintext
 
-    for(int i=1; i<=num_col; i++)
+    for(int i=0; i<num_col; i++)
     {
         for(int j=0; j<num_row; j++)
         {
-             mat[j][key.find(i+'0')] = ct[k++];
+             mat[j][key.find(i+'1')] = ct[k++];
         }
     }
 
