@@ -57,15 +57,9 @@ string substitution(string input)
     for(int i=0; i<8; i++)
     {
         string sInput = input.substr(6*i, 6) ;
-<<<<<<< HEAD
         int row = bitset<2>( sInput.substr(0,1) + sInput.substr(5,1) ).to_ulong() ;
         int col = bitset<4>( sInput.substr(1,4) ).to_ulong() ;
         res += bitset<4>(sBoxes[i][row*16+col]).to_string() ;
-=======
-        int row = bitset<2>( sInput.substr(0,1) + sInput.substr(5,1) ).to_ulong();
-        int col = bitset<4>(sInput.substr(1,4)).to_ulong() ;
-        res += bitset<4>(sBoxes[i][row*16+col]).to_string(); 
->>>>>>> 9cf9ae2a7e704d38a8e28bef82c59b8ab31fd90c
 
         // To display individual s-box input and output un-comment this block
         // string value = "";
