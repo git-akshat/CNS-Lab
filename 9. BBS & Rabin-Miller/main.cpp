@@ -60,13 +60,13 @@ int powModN(int num,int p,int n)
 bool rabinMiller(int n)
 {
     double temp = n-1;
-    int i=0;
+    int k=1;
     while(ceil(temp) == floor(temp))
     {
         temp = temp/2.0;
-        i++;
+        k++ ;
     }
-    int k = i-1;
+
     int q = (n-1)/pow(2,k);
 
     int a = randInRange(1,n-1);
