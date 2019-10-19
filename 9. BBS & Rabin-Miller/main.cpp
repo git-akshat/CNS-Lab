@@ -38,7 +38,7 @@ int bbs(int p, int q)
         x = (x*x) % n;
         B = B<<1 | (x & 1); // x%2 = x&1
     }
-    
+	
     if(B==0) return bbs(p,q); // check that number generated should not be zero
     cout<<"Blum Blum Shub"<<endl<<"--------------"<<endl;
     cout<<"p = "<< p <<"\nq = "<< q <<"\nn = "<< n <<"\ns = "<< s <<endl;
@@ -51,8 +51,8 @@ int powModN(int num,int p,int n)
 	int res=1;
 	for(int i=0; i<p; i++)
 	{
-        res = res * num;
-        res = res %  n;
+            res = res * num;
+	    res = res %  n;
 	}
 	return res;
 }
@@ -60,15 +60,13 @@ int powModN(int num,int p,int n)
 bool rabinMiller(int n)
 {
     double temp = n-1;
-    int k=1;
+    int k=-1;
     while(ceil(temp) == floor(temp))
     {
         temp = temp/2.0;
         k++ ;
     }
-
     int q = (n-1)/pow(2,k);
-
     int a = randInRange(1,n-1);
 
     cout << "\nRabin Miller(" << n << ")\n-----------------" << endl;
@@ -77,7 +75,6 @@ bool rabinMiller(int n)
 
     // if (a pow q)%n == 1
     if(powModN(a,q,n) == 1) return true;
-
     for(int j=0; j<=k-1; j++)
     {
         int x = pow(2,j);
@@ -100,7 +97,6 @@ int main()
 }
 
 /*************** output-1 **************
-
 Blum Blum Shub
 --------------
 p = 10223
@@ -116,9 +112,9 @@ k = 1
 q = 221
 a = 81
 Inconclusive
+****************************************/
 
-**************** output-2 **************
-
+/**************** output-2 **************
 Blum Blum Shub
 --------------
 p = 25447
@@ -134,5 +130,4 @@ k = 0
 q = 981
 a = 234
 Composite
-
 ****************************************/
