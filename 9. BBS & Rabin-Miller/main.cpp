@@ -29,7 +29,7 @@ int bbs(int p, int q)
     int n = p*q ;
 
     int s; // non-zero and relatively prime to n
-    do{ s = rand(); }while(s%p!=0 && s%q!=0 && s==0);
+    do{ s = rand(); } while(s%p==0 || s%q==0 || s==0);
 
     int B = 0;
     long x = (s*s) % n;
@@ -39,7 +39,7 @@ int bbs(int p, int q)
         B = B<<1 | (x & 1); // x%2 = x&1
     }
 
-    if(B==0) return bbs(p,q); // check that number generated should not be zero
+    if(B==0) return bbs(p,q); // check that the number generated should not be zero
     cout<<"Blum Blum Shub"<<endl<<"--------------"<<endl;
     cout<<"p = "<< p <<"\nq = "<< q <<"\nn = "<< n <<"\ns = "<< s <<endl;
     return B;
