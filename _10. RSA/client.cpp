@@ -25,34 +25,6 @@ int gcd(int a, int b)
     return b==0 ? a : gcd(b, a%b);
 }
 
-int findDetInverse(int R , int phi) // R is the remainder or determinant
-{
-	int i = 0 ;
-	int p[100] = {0,1};
-	int q[100] = {0} ; // quotient
-    int D = phi;
-
-	while(R!=0)
-	{
-		q[i] = D/R ;
-		int oldD = D ;
-		D = R ;
-		R = oldD%R ;
-		if(i>1)
-		{
-			p[i] = (p[i-2] - p[i-1]*q[i-2]) % phi;
-            if(p[i] < 0) p[i] = phi+p[i]; // if mod value is negative
-		}
-		i++ ;
-	}
-	if (i != 1)
-    {
-        p[i] = (p[i-2] - p[i-1]*q[i-2]) % phi;
-        if(p[i] < 0) p[i] = phi+p[i];
-    }
-    return p[i];
-}
-
 // M = C^d mod n
 int decrypt(int C, int PR[2])
 {
@@ -79,12 +51,10 @@ int main()
     {
         if(gcd(e,phi) == 1) break;
     }
-    d = findDetInverse(e, phi); // find d using extended eucledian algorithm
-
-    // for(d=1; d<phi; d++)
-    // {
-    //     if((d*e)%phi == 1) break;
-    // }
+    for(d=1; d<phi; d++)
+    {
+        if((d*e)%phi == 1) break;
+    }
     
     int PU[2] = {e, n}; // public key
     int PR[2] = {d, n}; // private key
