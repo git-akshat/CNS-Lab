@@ -26,13 +26,13 @@ int genPrime3mod4()
 
 int bbs(int p, int q)
 {
-    int n = p*q ;
+    long n = p*q ;
 
-    int s; // non-zero and relatively prime to n
+    long s; // non-zero and relatively prime to n
     do{ s = rand(); } while(s%p==0 || s%q==0 || s==0);
 
     int B = 0;
-    long x = (s*s) % n;
+    unsigned long x = (s*s) % n;
     for(int i=0; i<10; i++) // to generate 10 bit output
     {
         x = (x*x) % n;
