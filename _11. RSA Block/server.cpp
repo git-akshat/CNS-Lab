@@ -40,37 +40,56 @@ int main()
     recv(sock, &PU, sizeof(PU), 0); // receive public key from client
     cout << "\nPublic key received from client : {" << PU[0] << ", " << PU[1] << "}" << endl;
 
-    String msg; // plaintext message
-    cout << "\nEnter message to encrypt : "; cin >> M;
+    string msg; // plaintext message
+    cout << "\nEnter message to encrypt : "; cin >> msg;
 
-    // string m1 = msg[itr++];
-    //     string m2 = msg[itr++];
-    //     string temp1 = (msg[itr]-97 < 10) ? ("0" + msg[itr++]-97) : (msg[itr++]-97);
-    //     string temp2 = (msg[i+1]-97 < 10) ? ("0" + msg[i+1]-97) : (msg[i]-97);
-    if(msg.length()% 2 != 0) msg += "x";
-    for(int i=0; i<msg.length()-1; i+=2)
+    if(msg.length()% 2 != 0) msg+="x";
+
+    for(int i=0; i<msg.length(); i+=2)
     { 
         int M = (msg[i]-'a')*100 + msg[i+1]-'a';
+        cout << "\nPlaintext block : " << M << endl;
+
         int C = encrypt(M, PU);
-        cout << "\nEncrypted Text : " << C << endl;
+        cout << "Encrypted text  : " << C << endl;
         send(sock, &C, sizeof(C), 0); // send ciphertext to client
     }
-    send(sock, -1, sizeof(C), 0);
+    int stop = -1;
+    send(sock, &stop, sizeof(stop), 0); //at end send -1 to client
     cout << "\nSent ciphertext to client." << endl << endl;
 }
 
 /* 
-akshat@pop-os:~/Desktop$ g++ server.cpp -o s.out
-akshat@pop-os:~/Desktop$ ./s.out
-
 Server Online. Waiting for client....
 Connection Established.
 
-Public key received from client : {3, 391}
+Public key received from client : {1007, 13231}
 
-Enter message(M<391) to encrypt : 231
+Enter message to encrypt : cryptographylab
 
-Encrypted Text : 116
+Plaintext block : 217
+Encrypted text  : 9189
+
+Plaintext block : 2415
+Encrypted text  : 4027
+
+Plaintext block : 1914
+Encrypted text  : 10957
+
+Plaintext block : 617
+Encrypted text  : 534
+
+Plaintext block : 15
+Encrypted text  : 2422
+
+Plaintext block : 724
+Encrypted text  : 7387
+
+Plaintext block : 1100
+Encrypted text  : 8051
+
+Plaintext block : 123
+Encrypted text  : 9570
 
 Sent ciphertext to client.
 */

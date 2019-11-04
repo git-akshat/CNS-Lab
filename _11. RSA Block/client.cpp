@@ -39,10 +39,11 @@ int main()
     int sock = connectToServer("127.0.0.1");
 
     int p,q; 
-    cout << "\nEnter two prime numbers : "; cin >> p >> q;
+    cout << "\nEnter two large prime numbers : "; cin >> p >> q;
     int n = p * q ;
     int phi = (p-1) * (q-1);
 
+    srand(time(NULL));
     int e, d;
     do{ e = rand()%(phi-2)+2; } while(gcd(e,phi) != 1);
     
@@ -62,32 +63,51 @@ int main()
     while (true)
     {
         int C; // ciphertext
-        recv(sock, &C, sizeof(C), 0));
-        if(C==-1) break;
-         // receive ciphertext from server
+        recv(sock, &C, sizeof(C), 0); 
+        if(C==-1)   break; // at end -1 will be received from server
         cout << "\nCiphertext received from server : " << C << endl;
+
         int M = decrypt(C,PR);
-        msg += char((M%100)+'a');
+        cout << "Decrypted Text : " << M << endl;
         msg += char((M/100)+'a');
-        string block = temp.substr(-4,4);
+        msg += char((M%100)+'a');
     }
-    cout << "\nDecrypted Text : " << msg << endl << endl; 
+    cout << "\nDecrypted message : " << msg << endl << endl; 
 }
 
 /*
-akshat@pop-os:~/Desktop$ g++ client.cpp -o c.out
-akshat@pop-os:~/Desktop$ ./c.out
-
 Client is connected to Server.
 
-Enter two prime numbers : 23 17
+Enter two large prime numbers : 101 131
 
-Public key , PU = {3, 391}
-Private key, PR = {235, 391}
+Public key , PU = {1007, 13231}
+Private key, PR = {2143, 13231}
 
 Sent Public key to server.
 
-Ciphertext received from server : 116
+Ciphertext received from server : 9189
+Decrypted Text : 217
 
-Decrypted Text : 231
+Ciphertext received from server : 4027
+Decrypted Text : 2415
+
+Ciphertext received from server : 10957
+Decrypted Text : 1914
+
+Ciphertext received from server : 534
+Decrypted Text : 617
+
+Ciphertext received from server : 2422
+Decrypted Text : 15
+
+Ciphertext received from server : 7387
+Decrypted Text : 724
+
+Ciphertext received from server : 8051
+Decrypted Text : 1100
+
+Ciphertext received from server : 9570
+Decrypted Text : 123
+
+Decrypted message : cryptographylabx
 */
