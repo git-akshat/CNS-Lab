@@ -47,7 +47,7 @@ int main()
 
     for(int i=0; i<msg.length(); i+=2)
     { 
-        int M = (msg[i]-'a')*100 + msg[i+1]-'a';
+        int M = (msg[i]-'a')*100 + msg[i+1]-'a'; // block consist of two msg character 
         cout << "\nPlaintext block : " << M << endl;
 
         int C = encrypt(M, PU);

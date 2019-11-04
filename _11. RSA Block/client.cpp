@@ -64,13 +64,13 @@ int main()
     {
         int C; // ciphertext
         recv(sock, &C, sizeof(C), 0); 
-        if(C==-1)   break; // at end -1 will be received from server
+        if(C == -1)   break; // at end -1 will be received 
         cout << "\nCiphertext received from server : " << C << endl;
 
         int M = decrypt(C,PR);
         cout << "Decrypted Text : " << M << endl;
-        msg += char((M/100)+'a');
-        msg += char((M%100)+'a');
+        msg += char((M/100)+'a'); // first char in block
+        msg += char((M%100)+'a'); // second char in block
     }
     cout << "\nDecrypted message : " << msg << endl << endl; 
 }
@@ -111,3 +111,5 @@ Decrypted Text : 123
 
 Decrypted message : cryptographylabx
 */
+
+/* Note: large prime number should be provided such that their product should be greater than 2626 */
