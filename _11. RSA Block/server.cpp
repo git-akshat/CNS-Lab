@@ -40,12 +40,22 @@ int main()
     recv(sock, &PU, sizeof(PU), 0); // receive public key from client
     cout << "\nPublic key received from client : {" << PU[0] << ", " << PU[1] << "}" << endl;
 
-    int M; // plaintext message
-    cout << "\nEnter message(M<" << PU[1] << ") to encrypt : "; cin >> M;
+    String msg; // plaintext message
+    cout << "\nEnter message to encrypt : "; cin >> M;
 
-    int C = encrypt(M, PU);
-    cout << "\nEncrypted Text : " << C << endl;
-    send(sock, &C, sizeof(C), 0); // send ciphertext to client
+    // string m1 = msg[itr++];
+    //     string m2 = msg[itr++];
+    //     string temp1 = (msg[itr]-97 < 10) ? ("0" + msg[itr++]-97) : (msg[itr++]-97);
+    //     string temp2 = (msg[i+1]-97 < 10) ? ("0" + msg[i+1]-97) : (msg[i]-97);
+    if(msg.length()% 2 != 0) msg += "x";
+    for(int i=0; i<msg.length()-1; i+=2)
+    { 
+        int M = (msg[i]-'a')*100 + msg[i+1]-'a';
+        int C = encrypt(M, PU);
+        cout << "\nEncrypted Text : " << C << endl;
+        send(sock, &C, sizeof(C), 0); // send ciphertext to client
+    }
+    send(sock, -1, sizeof(C), 0);
     cout << "\nSent ciphertext to client." << endl << endl;
 }
 

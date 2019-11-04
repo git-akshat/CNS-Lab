@@ -45,6 +45,7 @@ int main()
 
     int e, d;
     do{ e = rand()%(phi-2)+2; } while(gcd(e,phi) != 1);
+    
     for(d=1; d<phi; d++)
     {
         if((d*e)%phi == 1) break;
@@ -57,13 +58,20 @@ int main()
 
     send(sock, &PU, sizeof(PU), 0); // send public key to server
     cout << "\nSent Public key to server." << endl;
-
-    int C; // ciphertext
-    recv(sock, &C, sizeof(C), 0); // receive ciphertext from server
-    cout << "\nCiphertext received from server : " << C << endl;
-
-    int M = decrypt(C, PR); // decrypted text
-    cout << "\nDecrypted Text : " << M << endl << endl; 
+    string msg = "";
+    while (true)
+    {
+        int C; // ciphertext
+        recv(sock, &C, sizeof(C), 0));
+        if(C==-1) break;
+         // receive ciphertext from server
+        cout << "\nCiphertext received from server : " << C << endl;
+        int M = decrypt(C,PR);
+        msg += char((M%100)+'a');
+        msg += char((M/100)+'a');
+        string block = temp.substr(-4,4);
+    }
+    cout << "\nDecrypted Text : " << msg << endl << endl; 
 }
 
 /*

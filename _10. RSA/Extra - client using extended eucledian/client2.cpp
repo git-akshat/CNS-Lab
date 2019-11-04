@@ -2,7 +2,7 @@
 # include <arpa/inet.h> 
 using namespace std;
 
-int connect(const char* ip)
+int connectToServer(const char* ip)
 {
     struct sockaddr_in addr;
 
@@ -14,7 +14,7 @@ int connect(const char* ip)
     if(connect(sock, (struct sockaddr *) &addr, sizeof(addr)) < 0 ){
         cout << "\nRun server program first." << endl; exit(0);
     }else{
-         cout << "\nClient is connected to Server." << endl; 
+        cout << "\nClient is connected to Server." << endl; 
     }
 
     return sock;
@@ -25,7 +25,7 @@ int gcd(int a, int b)
     return b==0 ? a : gcd(b, a%b);
 }
 
-int findDetInverse(int R , int phi) // R is the remainder or determinant
+int extEucledian(int R , int phi) // R is the remainder or determinant
 {
 	int i = 0 ;
 	int p[100] = {0,1};
@@ -66,7 +66,7 @@ int decrypt(int C, int PR[2])
 
 int main()
 {
-    int sock = connect("127.0.0.1");
+    int sock = connectToServer("127.0.0.1");
 
     int p,q; 
     cout << "\nEnter two prime numbers : "; cin >> p >> q;
@@ -75,11 +75,8 @@ int main()
     int phi = (p-1) * (q-1);
 
     int e, d;
-    for(e=2; e<phi; e++)
-    {
-        if(gcd(e,phi) == 1) break;
-    }
-    d = findDetInverse(e, phi); // find d using extended eucledian algorithm
+    do{ e = rand()%(phi-2)+2; } while(gcd(e,phi) != 1);
+    d = extEucledian(e, phi); // find d using extended eucledian algorithm
     
     int PU[2] = {e, n}; // public key
     int PR[2] = {d, n}; // private key
