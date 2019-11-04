@@ -75,6 +75,7 @@ int main()
     int phi = (p-1) * (q-1);
 
     int e, d;
+    srand(time(NULL));
     do{ e = rand()%(phi-2)+2; } while(gcd(e,phi) != 1);
     d = extEucledian(e, phi); // find d using extended eucledian algorithm
     
