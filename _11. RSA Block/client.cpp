@@ -2,12 +2,13 @@
 # include <arpa/inet.h> 
 using namespace std;
 
-int connectToServer(const char* ip)
+
+int connectToServer(const char* ip, int port)
 {
     struct sockaddr_in addr;
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     addr.sin_family = AF_INET;
-    addr.sin_port = htons(1234);
+    addr.sin_port = htons(port);
     addr.sin_addr.s_addr = inet_addr(ip);
 
     if(connect(sock, (struct sockaddr *) &addr, sizeof(addr)) < 0 ){
@@ -36,7 +37,11 @@ int decrypt(int C, int PR[2])
 
 int main()
 {
-    int sock = connectToServer("127.0.0.1");
+    char ip[50];
+    int port;
+    cout << "Enter Server's IP address: "; cin >> ip;
+    cout << "Enter port : "; cin >> port;
+    int sock = connectToServer(ip, port);
 
     int p,q; 
     cout << "\nEnter two large prime numbers : "; cin >> p >> q;
@@ -76,6 +81,9 @@ int main()
 }
 
 /*
+Enter Server's IP address: 192.168.224.74
+Enter port : 1234
+
 Client is connected to Server.
 
 Enter two large prime numbers : 101 131

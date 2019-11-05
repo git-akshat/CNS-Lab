@@ -2,14 +2,14 @@
 # include <arpa/inet.h> 
 using namespace std;
 
-int connectToClient(const char* ip)
+int createServer(int port)
 {
     struct sockaddr_in addr;
  
     int sersock = socket(AF_INET, SOCK_STREAM, 0);
     addr.sin_family = AF_INET;
-    addr.sin_port = htons(1234); 
-    addr.sin_addr.s_addr = inet_addr(ip);
+    addr.sin_port = htons(port); 
+    addr.sin_addr.s_addr = INADDR_ANY;
 
     bind(sersock, (struct sockaddr *) &addr, sizeof(addr));
     cout << "\nServer Online. Waiting for client...." << endl;
@@ -34,7 +34,9 @@ int encrypt(int M, int PU[2])
 
 int main()
 {
-    int sock = connectToClient("127.0.0.1");
+    int port;
+    cout << "Enter port : "; cin >> port;
+    int sock = createServer(port);
 
     int PU[2];
     recv(sock, &PU, sizeof(PU), 0); // receive public key from client
@@ -47,7 +49,7 @@ int main()
 
     for(int i=0; i<msg.length(); i+=2)
     { 
-        int M = (msg[i]-'a')*100 + msg[i+1]-'a'; // block consist of two msg character 
+        int M = (tolower(msg[i])-'a')*100 + tolower(msg[i+1])-'a'; // block consist of two msg character 
         cout << "\nPlaintext block : " << M << endl;
 
         int C = encrypt(M, PU);
@@ -60,6 +62,8 @@ int main()
 }
 
 /* 
+Enter port : 1234
+
 Server Online. Waiting for client....
 Connection Established.
 

@@ -2,13 +2,12 @@
 # include <arpa/inet.h> 
 using namespace std;
 
-int connectToServer(const char* ip)
+int connectToServer(const char* ip, int port)
 {
     struct sockaddr_in addr;
-
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     addr.sin_family = AF_INET;
-    addr.sin_port = htons(1234);
+    addr.sin_port = htons(port);
     addr.sin_addr.s_addr = inet_addr(ip);
 
     if(connect(sock, (struct sockaddr *) &addr, sizeof(addr)) < 0 ){
@@ -16,7 +15,6 @@ int connectToServer(const char* ip)
     }else{
         cout << "\nClient is connected to Server." << endl; 
     }
-
     return sock;
 }
 
@@ -66,18 +64,21 @@ int decrypt(int C, int PR[2])
 
 int main()
 {
-    int sock = connectToServer("127.0.0.1");
+    char ip[50];
+    int port;
+    cout << "\nEnter server's IP address: "; cin >> ip;
+    cout << "Enter port : "; cin >> port;
+    int sock = connectToServer(ip, port);
 
     int p,q; 
     cout << "\nEnter two prime numbers : "; cin >> p >> q;
-
     int n = p * q ;
     int phi = (p-1) * (q-1);
 
     int e, d;
     srand(time(NULL));
     do{ e = rand()%(phi-2)+2; } while(gcd(e,phi) != 1);
-    d = extEucledian(e, phi); // find d using extended eucledian algorithm
+    d = extEucledian(e, phi);
     
     int PU[2] = {e, n}; // public key
     int PR[2] = {d, n}; // private key
@@ -92,12 +93,15 @@ int main()
     cout << "\nCiphertext received from server : " << C << endl;
 
     int M = decrypt(C, PR); // decrypted text
-    cout << "\nDecrypted Text : " << M << endl << endl; 
+    cout << "\nDecrypted Text : " << M << endl << endl;
 }
 
 /*
 akshat@pop-os:~/Desktop$ g++ client.cpp -o c.out
 akshat@pop-os:~/Desktop$ ./c.out
+
+Enter server's IP address: 192.168.224.74
+Enter port : 4444
 
 Client is connected to Server.
 
