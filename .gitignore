@@ -46,6 +46,6 @@
 .vscode
 
 # outputs
-*.png
-*.jpg
-*.jpeg
+# *.png
+# *.jpg
+# *.jpeg
