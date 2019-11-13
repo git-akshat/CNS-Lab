@@ -3,8 +3,8 @@
 using namespace std;
 
 int p, q, e, d, n, phi; // global variables
-int PUc[2], PRc[2];
-int PUs[2];
+int PUc[2], PRc[2];     // client's keys
+int PUs[2];             // server's public key
 int sock;
 
 void connectToServer(const char* ip, int port)

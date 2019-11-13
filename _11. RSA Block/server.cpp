@@ -28,6 +28,12 @@ int encrypt(int M, int PU[2])
     return C;
 }
 
+// a=00, b=01, ... A=26, B=27...
+int toInt(char c)
+{
+    return (c < 'a') ? (c-'A'+26) : (c-'a');
+}
+
 int main()
 {
     int port;
@@ -45,7 +51,8 @@ int main()
 
     for(int i=0; i<msg.length(); i+=2)
     { 
-        int M = (tolower(msg[i])-'a')*100 + tolower(msg[i+1])-'a'; // block consist of two msg character 
+        
+        int M = (toInt(msg[i]))*100 + toInt(msg[i+1]); // block consist of two msg character 
         cout << "\nPlaintext block : " << M << endl;
 
         int C = encrypt(M, PU);

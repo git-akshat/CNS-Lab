@@ -33,6 +33,12 @@ int decrypt(int C, int PR[2])
     return M;
 }
 
+// a=00, b=01, ... A=26, B=27...
+char toChar(int n)
+{
+    return (n >= 26) ? (n+'A'-26) : (n+'a');
+}
+
 int main()
 {
     char ip[50];
@@ -72,8 +78,8 @@ int main()
 
         int M = decrypt(C,PR);
         cout << "Decrypted Text : " << M << endl;
-        msg += char((M/100)+'a'); // first char in block
-        msg += char((M%100)+'a'); // second char in block
+        msg += toChar(M/100); // first char in block
+        msg += toChar(M%100); // second char in block
     }
     cout << "\nDecrypted message : " << msg << endl << endl; 
 }
