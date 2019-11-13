@@ -4,12 +4,8 @@ using namespace std;
 
 int createServer(int port)
 {
-    struct sockaddr_in addr;
- 
     int sersock = socket(AF_INET, SOCK_STREAM, 0);
-    addr.sin_family = AF_INET;
-    addr.sin_port = htons(port); 
-    addr.sin_addr.s_addr = INADDR_ANY;
+    struct sockaddr_in addr = {AF_INET, htons(port), INADDR_ANY};
 
     bind(sersock, (struct sockaddr *) &addr, sizeof(addr));
     cout << "\nServer Online. Waiting for client...." << endl;
