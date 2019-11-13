@@ -60,7 +60,7 @@ long H(long M)
 
 long f1(long M,long k,long x,long r,long q)
 {
-	return ( inverse(k,q) * ( H(M) + x*r ) )%q; 
+	return ( findInverse(k,q) * ( H(M) + x*r ) )%q; 
 }
 
 long f2(long k, long p, long q, long g) 
@@ -71,9 +71,8 @@ long f2(long k, long p, long q, long g)
 
 int main()
 {
-    char ip[50]; cout << "\nEnter server's IP address: "; cin >> ip;
-    int port;    cout << "Enter port : "; cin >> port;
-    int sock = connectToServer(ip, port);
+    int port;  cout << "\nEnter port : "; cin >> port;
+    int sock = createServer(port);
     
 	srand(time(NULL));
 	long p,q,r,s,k,g,M,h,x,y,hashval;

@@ -59,7 +59,7 @@ long H(long M)
 
 long f3(long s,long q)
 {
-	return inverse(s,q)%q;
+	return findInverse(s,q)%q;
 }
 
 long f4(long y,long p,long q,long g,long hashval, long w,long r)
@@ -70,12 +70,11 @@ long f4(long y,long p,long q,long g,long hashval, long w,long r)
 	return ( powermod(g,u1,p) * powermod(y,u2,p) )%q;
 } 
 
-
-
 int main()
 {
-    int port;  cout << "\nEnter port : "; cin >> port;
-    int sock = createServer(port);
+    char ip[50]; cout << "\nEnter server's IP address: "; cin >> ip;
+    int port;    cout << "Enter port : "; cin >> port;
+    int sock = connectToServer(ip, port);
     
 	srand(time(NULL));
 	long p,q,r,s,w,v,g,hashval,y;
