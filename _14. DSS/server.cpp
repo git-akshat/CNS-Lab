@@ -2,7 +2,12 @@
 # include <arpa/inet.h> 
 using namespace std;
 
-int createServer(int port)
+long p, q; // prime numbers
+long r, s; // signature
+long k, x, y, g; // keys
+long M, hashval; // Message and Hash
+
+int createServer(long port)
 {
 	int sersock = socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in addr = {AF_INET, htons(port), INADDR_ANY};
@@ -16,31 +21,31 @@ int createServer(int port)
     return sock;
 }
 
-int mod(int a, int b)
+long mod(long a, long b)
 {
 	return a >= 0 ? (a%b) : b-(abs(a)%b) ;
 }
 
-long powermod(long a, long b, long  q)
+long powermod(long a, long b, long  c)
 {
 	long res=1;
-	for(long i=0;i<b;i++)
+	for(int i=0;i<b;i++)
 	{
-		res=(res*a)%q;
+		res = (res * a) % c;
 	}
 	return res;
 }
 
-int findInverse(int R , int D)
+long findInverse(long R , long D)
 {
 	int i = 0 ;
-	int p[100] = {0,1};
-	int q[100] = {0} ; // quotient
+	long p[100] = {0,1};
+	long q[100] = {0} ; // quotient
 
 	while(R!=0)
 	{
 		q[i] = D/R ;
-		int oldD = D ;
+		long oldD = D ;
 		D = R ;
 		R = oldD%R ;
 		if(i>1)
@@ -49,25 +54,24 @@ int findInverse(int R , int D)
 		}
 		i++ ;
 	}
-	if (i == 1) return p[i]=1;
-	else return p[i] = mod(p[i-2] - p[i-1]*q[i-2], D) ;
+	if (i == 1) return 1;
+	else        return p[i] = mod(p[i-2] - p[i-1]*q[i-2], D) ;
 }
 
-long H(long M)
+long H(long m)
 {
-	return ( M^1234 ); //hash key=1234 
+	return (m ^ 1234); //hash key = 1234 
 }
 
-long f1(long M,long k,long x,long r,long q)
+long f1()
 {
-	return ( findInverse(k,q) * ( H(M) + x*r ) )%q; 
+	return (findInverse(k,q) * (hashval + x*r )) % q; 
 }
 
-long f2(long k, long p, long q, long g) 
+long f2() 
 {
-	return powermod(g,k,p)%q;
+	return powermod(g, k, p) % q;
 }
-
 
 int main()
 {
@@ -75,35 +79,66 @@ int main()
     int sock = createServer(port);
     
 	srand(time(NULL));
-	long p,q,r,s,k,g,M,h,x,y,hashval;
 
-	cout<<"p = "; cin>>p;
-	cout<<"q = "; cin>>q;
-	cout<<"M = "; cin>>M;
+	cout << "\nEnter a large prime number, p : "; cin >> p; 
+	cout << "Enter a prime number, q (p-1 div by q and q>2) : "; cin >> q;
+    if( (p-1)%q != 0 || q <=2) { cout << "\nInvalid input\n"; exit(-1); }
+
+	cout<<"Enter message, M = "; cin >> M;
 	
-	hashval=H(M);
-	h=rand()%(p-3)+2;
-	g=powermod(h,(p-1)/q,p);
+	hashval = H(M); 
+    cout << "\nHash value, H(M) = " << hashval << endl;
+	
+    long h = rand()%(p-3)+2;   // 1 < h < p-1
+	g = powermod(h,(p-1)/q, p); cout << "g = " << g << endl;
 
-	x=rand()%(q-2)+1;	//User private key
-	y=powermod(g,x,p);	//User public key
+	x = rand()%(q-2) + 1;	cout << "Server's Private key, x = " << x << endl;
+	y = powermod(g, x, p);	cout << "Server's Public  key, y = " << y << endl;
 
-	k=rand()%(q-2)+1;
+	k = rand()%(q-2) + 1;   cout << "\nSecret key, k = " << k << endl;
 
 	//Signing
-	r=f2(k,p,q,g);
-	s=f1(M,k,x,r,q);
+	r = f2();
+	s = f1();
+    cout << "Server's Digital Signature = {" << r << ", " << s << "}" << endl;
 
-	send(sock, &hashval, sizeof(hashval), 0);	
-	send(sock, &r, sizeof(r), 0);
-	send(sock, &s, sizeof(s), 0);	
+    send(sock, &p, sizeof(p), 0);
+    send(sock, &q, sizeof(q), 0);	
 	send(sock, &g, sizeof(g), 0);	
 	send(sock, &y, sizeof(y), 0);	
+    send(sock, &M, sizeof(M), 0);
+    send(sock, &r, sizeof(r), 0);
+	send(sock, &s, sizeof(s), 0);	
 
-	cout<<"Packet sent with values"<<endl;
-	cout<<"Hash : "<<hashval<<endl;
-	cout<<"R    : "<<r<<endl;
-	cout<<"S    : "<<s<<endl;
-	cout<<"Y    : "<<y<<endl;
-	cout<<"G    : "<<g<<endl;
+    cout << "\nSent p, q, g, and public key to client.";
+	cout <<"\nSent message along with signature to client." << endl << endl;
 }
+
+/*
+p=71, q=7
+p=569, q=71
+p=809, q=101
+p=619, q=103
+*/
+
+/*
+Enter port : 6543
+
+Server Online. Waiting for client....
+Connection Established.
+
+Enter a large prime number, p : 619
+Enter a large prime number, q (p-1 div by q) : 103
+Enter message, M = 321
+
+Hash value, H(M) = 1427
+g = 1
+Server's Private key, x = 522
+Server's Public  key, y = 1
+
+Secret key, k = 19
+Server's Digital Signature = {1, 0}
+
+Sent p, q, g, and public key to client.
+Sent message along with signature to client.
+*/
