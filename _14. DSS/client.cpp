@@ -41,7 +41,7 @@ long findInverse(long R , long D)
 	int i = 0 ;
 	long p[100] = {0,1};
 	long q[100] = {0} ; // quotient
-
+	long N = D;
 	while(R!=0)
 	{
 		q[i] = D/R ;
@@ -50,12 +50,12 @@ long findInverse(long R , long D)
 		R = oldD%R ;
 		if(i>1)
 		{
-			p[i] = mod(p[i-2] - p[i-1]*q[i-2], D) ;
+			p[i] = mod(p[i-2] - p[i-1]*q[i-2], N) ;
 		}
 		i++ ;
 	}
 	if (i == 1) return 1;
-	else        return p[i] = mod(p[i-2] - p[i-1]*q[i-2], D) ;
+	else        return p[i] = mod(p[i-2] - p[i-1]*q[i-2], N) ;
 }
 
 long H(long m)
@@ -72,7 +72,7 @@ long f4()
 {
 	long u1 = (hashval * w) % q;
 	long u2 = (r * w) % q;
-	return (powermod(g,u1,p) * powermod(y,u2,p) ) % q;
+	return ((powermod(g,u1,p)*powermod(y,u2,p)) %p) %q;
 } 
 
 int main()
