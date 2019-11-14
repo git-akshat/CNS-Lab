@@ -41,7 +41,7 @@ long findInverse(long R , long D)
 	int i = 0 ;
 	long p[100] = {0,1};
 	long q[100] = {0} ; // quotient
-
+	long N = D;
 	while(R!=0)
 	{
 		q[i] = D/R ;
@@ -50,12 +50,12 @@ long findInverse(long R , long D)
 		R = oldD%R ;
 		if(i>1)
 		{
-			p[i] = mod(p[i-2] - p[i-1]*q[i-2], D) ;
+			p[i] = mod(p[i-2] - p[i-1]*q[i-2], N) ;
 		}
 		i++ ;
 	}
 	if (i == 1) return 1;
-	else        return p[i] = mod(p[i-2] - p[i-1]*q[i-2], D) ;
+	else        return p[i] = mod(p[i-2] - p[i-1]*q[i-2], N) ;
 }
 
 long H(long m)
@@ -89,8 +89,12 @@ int main()
 	hashval = H(M); 
     cout << "\nHash value, H(M) = " << hashval << endl;
 	
-    long h = rand()%(p-3)+2;   // 1 < h < p-1
-	g = powermod(h,(p-1)/q, p); cout << "g = " << g << endl;
+    long h;
+	do{
+		h = rand()%(p-4)+2;   // 1 < h < p-1
+		g = powermod(h,(p-1)/q, p);	//g > 1
+	} while(g<=1); // because g > 1	
+		cout << "g = " << g << endl;
 
 	x = rand()%(q-2) + 1;	cout << "Server's Private key, x = " << x << endl;
 	y = powermod(g, x, p);	cout << "Server's Public  key, y = " << y << endl;
