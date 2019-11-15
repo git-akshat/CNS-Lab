@@ -80,8 +80,8 @@ int main()
     
 	srand(time(NULL));
 
-	cout << "\nEnter a prime number, p : "; cin >> p; 
-	cout << "Enter a prime number, q (p-1 div by q and q>3) : "; cin >> q;
+	cout << "\nEnter a prime number, p (>50) : ";   cin >> p; 
+	cout << "Enter a prime number, q (p-1 divisible by q & q>3) : "; cin >> q;
     if( (p-1)%q != 0 || q <=2) { cout << "\nInvalid input\n"; exit(-1); }
 
 	cout<<"Enter message, M = "; cin >> M;
