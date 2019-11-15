@@ -21,7 +21,7 @@ int connectToServer(const char* ip, long port)
     return sock;
 }
 
-int mod(int a, int b)
+long mod(long a, long b)
 {
 	return a >= 0 ? (a%b) : b-(abs(a)%b) ;
 }
@@ -87,7 +87,7 @@ int main()
     recv(sock, &q, sizeof(q), 0);
 	recv(sock, &g, sizeof(g), 0);		
 	recv(sock, &y, sizeof(y), 0);
-	recv(sock, &M, sizeof(M), 0);
+	recv(sock, &hashval, sizeof(hashval), 0);
 	recv(sock, &r, sizeof(r), 0);
 	recv(sock, &s, sizeof(s), 0);	
 
@@ -95,12 +95,12 @@ int main()
 	cout << "Received q =  " << q << endl;
 	cout << "\nReceived g =  " << g << endl;
 	cout << "Received y =  " << y << endl;
-	cout << "\nReceived Message, M' =  " << M << endl;
+	cout << "\nReceived H(M') =  " << hashval << endl;
 	cout << "Received r' = " << r << endl;
 	cout << "Received s' = " << s << endl;
 
-	hashval = H(M); 
-	cout << "\nHash value, H(M') = " << hashval << endl;
+	M = H(hashval); // Message
+	cout << "\nMessage, M' = " << M << endl;
 	
 	//Verifying
 	w = f3();  cout << "w = " << w << endl;

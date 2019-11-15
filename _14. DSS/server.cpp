@@ -80,42 +80,41 @@ int main()
     
 	srand(time(NULL));
 
-	cout << "\nEnter a large prime number, p : "; cin >> p; 
-	cout << "Enter a prime number, q (p-1 div by q and q>2) : "; cin >> q;
+	cout << "\nEnter a prime number, p : "; cin >> p; 
+	cout << "Enter a prime number, q (p-1 div by q and q>3) : "; cin >> q;
     if( (p-1)%q != 0 || q <=2) { cout << "\nInvalid input\n"; exit(-1); }
 
 	cout<<"Enter message, M = "; cin >> M;
 	
 	hashval = H(M); 
-    cout << "\nHash value, H(M) = " << hashval << endl;
+    cout << "\nH(M) = " << hashval << endl;
 	
     long h;
 	do{
 		h = rand()%(p-4)+2;   // 1 < h < p-1
 		g = powermod(h,(p-1)/q, p);	//g > 1
-	} while(g<=1); // because g > 1	
-		cout << "g = " << g << endl;
+	} while(g<=1);
+	cout << "g = " << g << endl;
 
 	x = rand()%(q-2) + 1;	cout << "Server's Private key, x = " << x << endl;
 	y = powermod(g, x, p);	cout << "Server's Public  key, y = " << y << endl;
-
-	k = rand()%(q-2) + 1;   cout << "\nSecret key, k = " << k << endl;
+	k = rand()%(q-2) + 1;   cout << "Secret key, k = " << k << endl;
 
 	//Signing
 	r = f2();
 	s = f1();
-    cout << "Server's Digital Signature = {" << r << ", " << s << "}" << endl;
+    cout << "\nServer's Digital Signature = {" << r << ", " << s << "}" << endl;
 
     send(sock, &p, sizeof(p), 0);
     send(sock, &q, sizeof(q), 0);	
 	send(sock, &g, sizeof(g), 0);	
 	send(sock, &y, sizeof(y), 0);	
-    send(sock, &M, sizeof(M), 0);
+    send(sock, &hashval, sizeof(hashval), 0);
     send(sock, &r, sizeof(r), 0);
 	send(sock, &s, sizeof(s), 0);	
 
     cout << "\nSent p, q, g, and public key to client.";
-	cout <<"\nSent message along with signature to client." << endl << endl;
+	cout <<"\nSent hash message along with signature to client." << endl << endl;
 }
 
 /*
