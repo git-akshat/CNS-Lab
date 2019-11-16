@@ -59,3 +59,23 @@ int main()
 	send(sock, &cipher, sizeof(cipher), 0);
 	cout << "Encrypted msg sent to client: " << cipher << endl << endl;
 }
+
+/*
+Enter port : 4444
+
+Server Online. Waiting for client....
+Connection Established.
+
+Enter a prime number, q : 11
+Enter primitive root of q, alpha : 2
+
+Client's public key,  Yc = 5
+
+Server's private key, Xs = 10
+Server's public key,  Ys = 1
+
+Secret Key, k = 1
+
+Enter a message(integer) to send : 453
+Encrypted msg sent to client: 452
+*/

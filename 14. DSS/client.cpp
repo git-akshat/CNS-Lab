@@ -2,12 +2,6 @@
 # include <arpa/inet.h> 
 using namespace std;
 
-long p, q; // prime numbers
-long r, s; // signature
-long g, y; // keys
-long M, hashval; // Message and Hash
-long w, v; // verify
-
 int connectToServer(const char* ip, long port)
 {
     int sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -38,10 +32,9 @@ long powermod(long a, long b, long  c)
 
 long findInverse(long R , long D)
 {
-	int i = 0 ;
-	long p[100] = {0,1};
-	long q[100] = {0} ; // quotient
-	long N = D;
+	int i = 0;
+    long N = D;
+	long p[100] = {0,1}, q[100] = {0} ;
 	while(R!=0)
 	{
 		q[i] = D/R ;
@@ -58,22 +51,10 @@ long findInverse(long R , long D)
 	else        return p[i] = mod(p[i-2] - p[i-1]*q[i-2], N) ;
 }
 
-long H(long m)
+long H(long M)
 {
-	return (m ^ 1234); //hash key = 1234 
+	return (M ^ 1234); //hash key = 1234 
 }
-
-long f3()
-{
-	return findInverse(s,q) % q;
-}
-
-long f4()
-{
-	long u1 = (hashval * w) % q;
-	long u2 = (r * w) % q;
-	return ((powermod(g,u1,p)*powermod(y,u2,p)) %p) %q;
-} 
 
 int main()
 {
@@ -81,6 +62,11 @@ int main()
     int port;    cout << "Enter port : "; cin >> port;
     int sock = connectToServer(ip, port);
     
+    long p, q; // prime numbers
+    long r, s; // signature
+    long g, y; // keys
+    long M, hashval; // Message and Hash
+    long w, v; // verify
 	srand(time(NULL));
 	
 	recv(sock, &p, sizeof(p), 0);
@@ -93,9 +79,9 @@ int main()
 
 	cout << "Received p =  " << p << endl;
 	cout << "Received q =  " << q << endl;
-	cout << "\nReceived g =  " << g << endl;
+	cout << "Received g =  " << g << endl;
 	cout << "Received y =  " << y << endl;
-	cout << "\nReceived H(M') =  " << hashval << endl;
+	cout << "Received H(M') =  " << hashval << endl;
 	cout << "Received r' = " << r << endl;
 	cout << "Received s' = " << s << endl;
 
@@ -103,30 +89,30 @@ int main()
 	cout << "\nMessage, M' = " << M << endl;
 	
 	//Verifying
-	w = f3();  cout << "w = " << w << endl;
-	v = f4();  cout << "v = " << v << endl;
+	w = findInverse(s,q) % q;  cout << "w = " << w << endl;
+    long u1 = (hashval * w) % q;
+	long u2 = (r * w) % q;
+    v = ((powermod(g,u1,p)*powermod(y,u2,p)) %p) %q;  cout<<"v = "<<v<<endl;
 	if(v == r) cout<<"\nDigital Signature Verified. " << endl << endl;
 	else	   cout<<"\nDigital Signature is invalid !!!" << endl << endl;	
 }
 
 /*
 Enter server's IP address: 127.0.0.1
-Enter port : 6543
+Enter port : 3333
 
 Client is connected to Server.
-Received p =  103
-Received q =  619
+Received p =  13
+Received q =  3
+Received g =  3
+Received y =  3
+Received H(M') =  1057
+Received r' = 0
+Received s' = 1
 
-Received g =  1
-Received y =  1
+Message, M' = 243
+w = 1
+v = 0
 
-Received Message, M' =  321
-Received r' = 1
-Received s' = 0
-
-Hash value, H(M') = 1427
-w = 2
-v = 1
-
-Digital Signature Verified. 
+Digital Signature Verified.
 */

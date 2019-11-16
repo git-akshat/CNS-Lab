@@ -59,3 +59,23 @@ int main()
 	int decipher = cipher ^ k;	
 	cout << "Decrpyted message : " << decipher << endl << endl;
 }
+
+/*
+Enter server's IP address: 127.0.0.1
+Enter port : 4444
+
+Client is connected to Server.
+
+Enter a prime number, q : 11
+Enter primitive root of q, alpha : 2
+
+Client's private key, Xc = 4
+Client's public key,  Yc = 5
+
+Server's public key,  Ys = 1
+
+Secret Key, k = 1
+
+Message received from Server  : 452
+Decrpyted message : 453
+*/
