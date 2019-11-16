@@ -4,11 +4,8 @@ using namespace std;
 
 int connectToServer(const char* ip, int port)
 {
-    struct sockaddr_in addr;
     int sock = socket(AF_INET, SOCK_STREAM, 0);
-    addr.sin_family = AF_INET;
-    addr.sin_port = htons(port);
-    addr.sin_addr.s_addr = inet_addr(ip);
+    struct sockaddr_in addr = {AF_INET, htons(port), inet_addr(ip)};
 
     if(connect(sock, (struct sockaddr *) &addr, sizeof(addr)) < 0 ){
         cout << "\nRun server program first." << endl; exit(0);
@@ -23,7 +20,7 @@ int gcd(int a, int b)
     return b==0 ? a : gcd(b, a%b);
 }
 
-int extEucledian(int R , int phi) // R is the remainder or determinant
+int extEucledian(int R , int phi)
 {
 	int i = 0 ;
 	int p[100] = {0,1};
