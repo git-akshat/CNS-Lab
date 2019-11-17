@@ -21,7 +21,7 @@ int gcd(int a, int b)
 }
 
 // M = C^d mod n
-int decrypt(int C, int PR[2])
+int decrypt(int C, int PR[2]) // PR = {d, n}
 {
     int M = 1;
     for(int i=1; i<=PR[0]; i++)
@@ -36,7 +36,7 @@ int main()
     char ip[50];
     int port;
     cout << "\nEnter server's IP address: "; cin >> ip;
-    cout << "Enter port : "; cin >> port;
+    cout << "Enter port : ";                 cin >> port;
     int sock = connectToServer(ip, port);
 
     int p,q; 
@@ -44,8 +44,8 @@ int main()
     int n = p * q ;
     int phi = (p-1) * (q-1);
 
-    int e, d;
     srand(time(NULL));
+    int e, d;
     do{ e = rand()%(phi-2)+2; } while(gcd(e,phi) != 1);
     for(d=1; d<phi; d++)
     {

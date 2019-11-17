@@ -18,7 +18,7 @@ int createServer(int port)
 }
 
 // C = M^e mod n
-int encrypt(int M, int PU[2])
+int encrypt(int M, int PU[2]) // PU = {e, n}
 {
     int C=1;
     for(int i=1; i<=PU[0]; i++)
@@ -38,7 +38,7 @@ int main()
     recv(sock, &PU, sizeof(PU), 0); // receive public key from client
     cout << "\nPublic key received from client : {" << PU[0] << ", " << PU[1] << "}" << endl;
 
-    int M; // plaintext message
+    int M; // plaintext message (M < n)
     cout << "\nEnter message(M<" << PU[1] << ") to encrypt : "; cin >> M;
 
     int C = encrypt(M, PU);

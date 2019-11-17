@@ -44,7 +44,7 @@ void genKey()
     cout <<   "Private key, PRs = {" << d << ", " << n << "}" << endl;
 }
 
-void shareKey()
+void shareKey() // first send then receive
 {
     send(sock, &PUs, sizeof(PUs), 0); // send Server's public key to client
     recv(sock, &PUc, sizeof(PUc), 0); // receive public key from client
@@ -53,7 +53,7 @@ void shareKey()
 }
 
 // C = M^e mod n
-int encrypt(int M, int P[2])
+int encrypt(int M, int P[2]) // P = {e or d, n}
 {
     int C=1;
     for(int i=1; i<=P[0]; i++)
@@ -81,7 +81,7 @@ int main()
     int N1 = rand()%100; // nonce
     cout << "Nonce generated, N1 = " << N1 << endl;
     
-    // step-1: send Enc(PUc, [N1||ID]) to client
+    // step-1: send En(PUc, [N1||ID]) to client
     int msg = N1*100 + ID; // append ID to nonce
     int cipher = encrypt(msg, PUc);
     send(sock, &cipher, sizeof(cipher), 0);
@@ -96,7 +96,7 @@ int main()
     cout << "Decrypted Server's Nonce, N1 = " << N1c << endl;
     cout << "Decrypted Client's Nonce, N2 = " << N2 << endl;
     if(N1 != N1c) {cout << "\nNonce didn't match!\n"; exit(-1);}
-    else {cout << "-----Authenticated client-----" << endl;}
+    else {cout << "------ Client Authenticated ------" << endl;}
 
     // step-3: send En(PUc, N2) to client
     cipher = encrypt(N2, PUc);

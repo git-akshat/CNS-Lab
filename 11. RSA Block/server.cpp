@@ -46,20 +46,20 @@ int main()
 
     string msg; // plaintext message
     cout << "\nEnter message to encrypt : "; cin >> msg;
-
+    
     if(msg.length()% 2 != 0) msg+="x";
 
-    for(int i=0; i<msg.length(); i+=2)
+    for(int i=0; i<msg.length(); i+=2) // increment 2 for block
     { 
         
-        int M = (toInt(msg[i]))*100 + toInt(msg[i+1]); // block consist of two msg character 
+        int M = toInt(msg[i])*100 + toInt(msg[i+1]); // block consist of two msg character 
         cout << "\nPlaintext block : " << M << endl;
 
         int C = encrypt(M, PU);
         cout << "Encrypted text  : " << C << endl;
         send(sock, &C, sizeof(C), 0); // send ciphertext to client
     }
-    int stop = -1;
+    int stop = -1; // at end send -1 to tell client to stop
     send(sock, &stop, sizeof(stop), 0); //at end send -1 to client
     cout << "\nSent ciphertext to client." << endl << endl;
 }

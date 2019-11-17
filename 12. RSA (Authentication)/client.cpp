@@ -43,7 +43,7 @@ void genKey()
     cout <<   "Private key, PRc = {" << d << ", " << n << "}" << endl;
 }
 
-void shareKey()
+void shareKey() // first receive then send
 {
     recv(sock, &PUs, sizeof(PUs), 0); // receive public key from server
     send(sock, &PUc, sizeof(PUc), 0); // send client's public key to server
@@ -51,8 +51,8 @@ void shareKey()
     cout << "\nSent client's Public key to server." << endl;
 }
 
-// M = C^d mod n
-int encrypt(int M, int P[2])
+// C = M^e mod n
+int encrypt(int M, int P[2]) // P = {e or d, n}
 {
     int C=1;
     for(int i=1; i<=P[0]; i++)
@@ -101,7 +101,7 @@ int main()
     int N2s = decrypt(cipher, PRc);
     cout << "Decrypted Client's Nonce, N2 = " << N2s << endl;
     if(N2s != N2) {cout << "\nNonce didn't match!\n"; exit(-1);}
-    else {cout << "-----Authenticated Server-----" << endl;}
+    else {cout << "----- Server Authenticated -----" << endl;}
 
     // step-4: recv cipher and perform k = Dec(PUs, Dec(PRc, C))
     int k;

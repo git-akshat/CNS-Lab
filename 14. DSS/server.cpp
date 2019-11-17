@@ -29,7 +29,7 @@ long mod(long a, long b)
 long powermod(long a, long b, long  c)
 {
     long res=1;
-    for(int i=0;i<b;i++)
+    for(int i=0; i<b; i++)
     {
         res = (res * a) % c;
     }
@@ -39,7 +39,7 @@ long powermod(long a, long b, long  c)
 long findInverse(long R , long D)
 {
     int i = 0;
-    long N = D;
+    long N = D; // copy D to N for taking mod 
     long p[100] = {0,1};
     long q[100] = {0} ;
 
@@ -75,7 +75,7 @@ int main()
     long M, hashval; // Message and Hash
     srand(time(NULL));
 
-    cout << "\nEnter a prime number, p (>4) : ";   cin >> p; 
+    cout << "\nEnter a large prime number, p (>4) : ";   cin >> p; 
     cout << "Enter a prime number, q (p-1 divisible by q & q>2) : "; cin >> q;
     if( (p-1)%q != 0 || q <=2) { cout << "\nInvalid input\n"; exit(-1); }
 
@@ -87,7 +87,7 @@ int main()
     long h;
     do{
         h = randInRange(1, p-1);        // 1 < h < p-1
-        g = powermod(h,(p-1)/q, p);	//g > 1
+        g = powermod(h,(p-1)/q, p);	    //g > 1
     } while(g<=1);
     cout << "g    = " << g;
 

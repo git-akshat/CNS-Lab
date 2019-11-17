@@ -19,7 +19,7 @@ int createServer(int port)
 long powermod(long a, long b, long  q)
 {
 	long res=1;
-	for(long i=0;i<b;i++)
+	for(long i=0; i<b; i++)
 	{
 		res=(res*a)%q;
 	}
@@ -28,10 +28,8 @@ long powermod(long a, long b, long  q)
 
 int main()
 {
-    int port;
-    cout << "\nEnter port : "; cin >> port;
+    int port; cout << "\nEnter port : "; cin >> port;
     int sock = createServer(port);
-    
 	
 	long q, alpha;
 	cout<<"\nEnter a prime number, q : "; cin >> q;
@@ -42,7 +40,7 @@ int main()
 	cout<< "\nClient's public key,  Yc = " << Yc <<endl;
 	
 	srand(time(NULL));
-	long Xs = rand() % (q-1) +1; // server's private key (1<Xa<q)
+	long Xs = rand()%(q-2)+2; // server's private key (1<Xa<q)
 	cout<< "\nServer's private key, Xs = " << Xs <<endl;
 	
 	long Ys = powermod(alpha, Xs, q); // server's public key
@@ -52,13 +50,19 @@ int main()
 	long k = powermod(Yc,Xs,q);	
 	cout<<"\nSecret Key, k = "<<k<<endl;
 
-	int msg;
-	cout<<"\nEnter a message(integer) to send : "; cin>>msg;
+	long msg;
+	cout<<"\nEnter a message(number) to send : "; cin>>msg;
 	
-	int cipher=msg^k;
+	long cipher=msg^k;
 	send(sock, &cipher, sizeof(cipher), 0);
 	cout << "Encrypted msg sent to client: " << cipher << endl << endl;
 }
+
+/* 
+some values for q and alpha
+q=11, alpha=2
+q=71, alpha=7
+*/
 
 /*
 Enter port : 4444
@@ -76,6 +80,6 @@ Server's public key,  Ys = 1
 
 Secret Key, k = 1
 
-Enter a message(integer) to send : 453
+Enter a message(number) to send : 453
 Encrypted msg sent to client: 452
 */

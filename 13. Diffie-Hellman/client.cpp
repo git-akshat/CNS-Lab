@@ -27,18 +27,16 @@ long powermod(long a, long b, long  q)
 
 int main()
 {
-    char ip[50];
-    int port;
-    cout << "\nEnter server's IP address: "; cin >> ip;
-    cout << "Enter port : "; cin >> port;
+    char ip[50]; cout << "\nEnter server's IP address: "; cin >> ip;
+    int port;    cout << "Enter port : "; cin >> port;
     int sock = connectToServer(ip, port);
     
-	srand(time(NULL));
 	long q, alpha;
 	cout<<"\nEnter a prime number, q : "; cin >> q;
 	cout<<"Enter primitive root of q, alpha : "; cin >> alpha;
 	
-	long Xc = rand() % (q-1) +1; // client's private key (1<Xa<q)
+	srand(time(NULL));
+	long Xc = rand()%(q-2)+2; // client's private key (1<Xa<q)
 	cout<< "\nClient's private key, Xc = " << Xc <<endl;
 	
 	long Yc = powermod(alpha, Xc, q); // client's public key
@@ -52,13 +50,19 @@ int main()
 	long k = powermod(Ys,Xc,q);	
 	cout<<"\nSecret Key, k = "<<k<<endl;
 
-	int cipher;	
+	long cipher;	
 	recv(sock, &cipher, sizeof(cipher), 0);
 	cout<<"\nMessage received from Server  : " << cipher << endl;
 	
-	int decipher = cipher ^ k;	
+	long decipher = cipher ^ k;	
 	cout << "Decrpyted message : " << decipher << endl << endl;
 }
+
+/* 
+some values for q and alpha
+q=11, alpha=2
+q=71, alpha=7
+*/
 
 /*
 Enter server's IP address: 127.0.0.1

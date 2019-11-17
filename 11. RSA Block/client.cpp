@@ -1,3 +1,5 @@
+/* Note: give p and q values such that p*q > 5151 (since ZZ=5151) */
+
 # include <bits/stdc++.h>
 # include <arpa/inet.h> 
 using namespace std;
@@ -47,8 +49,8 @@ int main()
     int sock = connectToServer(ip, port);
 
     int p,q; 
-    cout << "\nEnter two large prime numbers : "; cin >> p >> q;
-    int n = p * q ;
+    cout << "\nEnter two large prime numbers(>100) : "; cin >> p >> q;
+    int n = p * q ; // should be greater than 5151 (since ZZ=5151)
     int phi = (p-1) * (q-1);
 
     srand(time(NULL));
@@ -67,12 +69,13 @@ int main()
 
     send(sock, &PU, sizeof(PU), 0); // send public key to server
     cout << "\nSent Public key to server." << endl;
+
     string msg = "";
     while (true)
     {
         int C; // ciphertext
         recv(sock, &C, sizeof(C), 0); 
-        if(C == -1)   break; // at end -1 will be received 
+        if(C == -1)   break; // at the end -1 will be received 
         cout << "\nCiphertext received from server : " << C << endl;
 
         int M = decrypt(C,PR);
@@ -123,4 +126,4 @@ Decrypted Text : 123
 Decrypted message : cryptographylabx
 */
 
-/* Note: large prime number should be provided such that their product should be greater than 2626 */
+/* Note: give p and q values such that p*q > 5151 (since ZZ=5151) */

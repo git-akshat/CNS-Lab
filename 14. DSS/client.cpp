@@ -23,7 +23,7 @@ long mod(long a, long b)
 long powermod(long a, long b, long  c)
 {
     long res=1;
-    for(int i=0;i<b;i++)
+    for(int i=0; i<b; i++)
     {
         res = (res * a) % c;
     }
@@ -33,8 +33,10 @@ long powermod(long a, long b, long  c)
 long findInverse(long R , long D)
 {
     int i = 0;
-    long N = D;
-    long p[100] = {0,1}, q[100] = {0} ;
+    long N = D; // copy D to N for taking mod 
+    long p[100] = {0,1};
+    long q[100] = {0} ;
+    
     while(R!=0)
     {
         q[i] = D/R ;
