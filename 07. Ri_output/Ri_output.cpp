@@ -4,7 +4,7 @@
 using namespace std;
 
 unsigned int sBoxes[8][64] = {
-    {14,4,13,1,2,15,11,8,3,10,6,12,5,9,0,7,
+   {14,4,13,1,2,15,11,8,3,10,6,12,5,9,0,7,
     0,15,7,4,14,2,13,1,10,6,12,11,9,5,3,8,
     4,1,14,8,13,6,2,11,15,12,9,7,3,10,5,0,
     15,12,8,2,4,9,1,7,5,11,3,14,10,0,6,13},
@@ -93,23 +93,23 @@ int main()
 {
     unsigned long long hexSBoxInput, hexInput;
 
-    cout << "\nEnter 48 bit input for S-Box in hex : " ;
+    cout << "\nEnter 48-bit input for S-Box in hex(12-digits)      : " ;
     cin >> hex >> hexSBoxInput;
 
-    cout << "Enter 64-bit (i-1)th round output in hex : " ;
+    cout << "Enter 64-bit (i-1)th round output in hex(16-digits) : " ;
     cin >> hex >> hexInput;
 
     string sBoxinput = bitset<48>(hexSBoxInput).to_string();
-    cout << "\nS-Box Input : " << sBoxinput << endl;
+    cout << "\nS-Box Input       : " << sBoxinput << endl;
 
     string input = bitset<64>(hexInput).to_string();
-    cout << "Output of Round(i-1) : " << input << endl;
+    cout << " Round(i-1) output : " << input << endl;
 
     string Li_1 = input.substr(0,32);
-    cout << "\nLi_1 = " << Li_1 << endl;
+    cout << "\nLi_1              : " << Li_1 << endl;
 
     string sBoxOutput = substitution(sBoxinput);
-    cout << "\nS-Box output = " << sBoxOutput << endl;
+    cout << "\nS-Box output    = " << sBoxOutput << endl;
 
     string P = permute(sBoxOutput);
     cout << "Permuted output = " << P << endl;
@@ -122,14 +122,14 @@ int main()
 cnslaba1@linux-HP-Pro-3090-Microtower-PC:~/akshat/output_Ri$ g++ main.cpp
 cnslaba1@linux-HP-Pro-3090-Microtower-PC:~/akshat/output_Ri$ ./a.out
 
-Enter 48 bit input for S-Box in hex : 6117ba866527
-Enter 64-bit (i-1)th round output in hex : cc00ccfff0aaf0aa
+Enter 48 bit input for S-Box in hex(12-digits)      : 6117ba866527
+Enter 64-bit (i-1)th round output in hex(16-digits) : cc00ccfff0aaf0aa
 
-S-Box Input : 011000010001011110111010100001100110010100100111
-Output of Round(i-1) : 1100110000000000110011001111111111110000101010101111000010101010
-Li_1 = 11001100000000001100110011111111
+S-Box Input       : 011000010001011110111010100001100110010100100111
+Round(i-1) output : 1100110000000000110011001111111111110000101010101111000010101010
+Li_1              : 11001100000000001100110011111111
 
-S-Box output = 01011100100000101011010110010111
+S-Box output    = 01011100100000101011010110010111
 Permuted output = 00100011010010101010100110111011
 
 Output of ith round (Ri) = 11101111010010100110010101000100

@@ -14,7 +14,7 @@ int main()
     cout << "\nPlain text \t: " ;
     for(int i=0; i<n; i++)
     {
-        pt[i] = ptString[i];
+        pt[i] = ptString[i]; // converting char to their ASCII value
         cout << pt[i] << " ";
     }
 
@@ -22,7 +22,7 @@ int main()
     for(int i=0; i<256; i++)
     {
         S[i] = i;
-        T[i] = (int)keyString[i%keyString.length()];
+        T[i] = (int)keyString[i%keyString.length()]; // fill T with ASCII value of key T[256]=[keykeykeykey...]
     }
 
     // Initial permutation
@@ -49,7 +49,7 @@ int main()
     cout << "\nCipher Text \t: ";
     for(int i=0; i<n; i++)
     {
-        ct[i] = pt[i] ^ keyStream[i];
+        ct[i] = pt[i] ^ keyStream[i]; // xor
         cout << ct[i] << " ";
     }
 
@@ -59,7 +59,7 @@ int main()
     {
         dt[i] = ct[i] ^ keyStream[i];
         cout << dt[i] << " ";
-        dtString += (char)dt[i];
+        dtString += (char)dt[i]; // change ASCII value to char
     }
     cout << "\nDecrypted text \t: " << dtString << endl;
 }

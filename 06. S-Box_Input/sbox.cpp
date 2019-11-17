@@ -53,17 +53,17 @@ int main()
 		fin >> Ki;
 	}
 
+	// ---- To insert key manually uncomment below lines ---
+	// unsigned long long hexKey;
+	// cout << "Enter 48 bit key for ith round: " ;
+	// cin >> hex >> hexKey;
+	// Ki = bitset<48>(hexKey).to_string();
+
 	if(Ki.length() == 0)
 	{
 		cout << "\nkeygen.txt not found !!! \n" << endl;
 		exit(1);
 	}
-
-	// To insert key manually uncomment this
-	// unsigned long long hexKey;
-	//cout << "Enter 48 bit key for ith round: " ;
-	//cin >> hex >> hexKey;
-	//Ki = bitset<48>(hexKey).to_string();
 
 	cout << "\n64-bit Binary Input = " << input << endl ;
 	cout << "key for ith round (Ki) = " << Ki << endl ;

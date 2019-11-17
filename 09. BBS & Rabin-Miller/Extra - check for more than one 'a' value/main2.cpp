@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int randInRange(int low, int high)
+int randInRange(int low, int high) // excluding high and low
 {
-    return (rand()%(high-low))+(low+1) ;
+    return rand()%(high-(low+1)) + (low+1) ;
 }
 
 int genPrime3mod4()
@@ -11,6 +11,8 @@ int genPrime3mod4()
     while(true)
     {
         int num = randInRange(10000,100000); // to generate large random number
+        if(num%4 != 3) continue;
+
         bool prime = true;
         for(int i=2; i<=sqrt(num); i++)
         {
@@ -20,19 +22,19 @@ int genPrime3mod4()
                 break;
             }
         }
-        if(prime && num%4 == 3) return num;
+        if(prime) return num;
     }
 }
 
 int bbs(int p, int q)
 {
-    long n = p*q ;
+    long long n = (long long)p*q ;
 
-    long s; // non-zero and relatively prime to n
+    long long s; // non-zero and relatively prime to n
     do{ s = rand(); } while(s%p==0 || s%q==0 || s==0);
 
     int B = 0;
-    unsigned long x = (s*s) % n;
+    long long x = (s*s) % n;
     for(int i=0; i<10; i++) // to generate 10 bit output
     {
         x = (x*x) % n;
@@ -45,25 +47,24 @@ int bbs(int p, int q)
     return B;
 }
 
-// (num pow p)%n
-int powModN(int num,int p,int n)
+// (a pow b)%n
+int powModN(int a, int b, int n)
 {
 	int res=1;
-	for(int i=0; i<p; i++)
+	for(int i=0; i<b; i++)
 	{
-        res = res * num;
-        res = res %  n;
+        res = (res * a) % n;
 	}
 	return res;
 }
 
 bool rabinMiller(int n)
 {
-    int q = n-1;
     int k = 0;
+    int q = n-1;
     while(q % 2 == 0)
     {
-        q = q/2;
+        q = q/2 ;
         k++ ;
     }
 
