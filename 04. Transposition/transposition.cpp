@@ -42,7 +42,7 @@ string decrypt(string ct , string key)
     string pt = ""; // plaintext
     int k = 0; // ciptext iterator
 
-    int num_row = ct.length() / key.length();
+    int num_row = ceil((float)ct.length() / key.length());
     int num_col = key.length();
     char mat[num_row][num_col];
 
@@ -84,3 +84,28 @@ int main()
     decryptext = decrypt(ciphertext , key);
     cout << "\nDecrypted text \t: " << decryptext << endl;
 }
+
+/*
+Enter text : transpositioncipher
+Enter key  : 4231
+
+Encryption Matrix :
+---------------------
+t  r  a  n  
+s  p  o  s  
+i  t  i  o  
+n  c  i  p  
+h  e  r  x  
+
+Encrypted text 	: nsopxrptceaoiirtsinh
+
+Decryption Matrix :
+---------------------
+t  r  a  n  
+s  p  o  s  
+i  t  i  o  
+n  c  i  p  
+h  e  r  x  
+
+Decrypted text 	: transpositioncipherx
+*/

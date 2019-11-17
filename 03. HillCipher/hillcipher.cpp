@@ -42,7 +42,7 @@ int findDetInverse(int R , int D = 26) // R is the remainder or determinant
 		}
 		i++ ;
 	}
-	if (i == 1) return p[i]=1;
+	if (i == 1) return 1;
 	else return p[i] = mod26(p[i-2] - p[i-1]*q[i-2]) ;
 }
 
@@ -88,7 +88,7 @@ void findInverse(int m[3][3] , int n , int m_inverse[3][3] )
 				temp[i][j] = m[i%3][j%3] ;
 			}
 		}
-		/* except first row and column, multiply elements along rows and place them along columns */
+		/* except first row and first column, multiply elements along rows and place them along columns */
 		for(int i=1; i<=3 ; i++)
 		{
 			for(int j=1; j<=3 ; j++)
@@ -185,7 +185,7 @@ int main(void)
 	cout << "Enter the text to be encrypted    : " ;
 	cin >> pt;
 
-	cout << "Enter number of rows in keymatrix : ";
+	cout << "Enter order of keymatrix : ";
 	cin >> n ;
 
 	cout<<"Enter key matrix: " <<endl;

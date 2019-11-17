@@ -57,7 +57,7 @@ void genKeys(string left, string right)
         right = rotateSubKey(right, leftShiftTable[i]);
 
         string key = secondPermute(left+right);
-
+        
         cout << "key " << i+1 << " \t: " << key << endl; // display
         fout << key << endl; // save to file
     }
@@ -66,7 +66,7 @@ void genKeys(string left, string right)
 int main()
 {
     unsigned long long hexkey;
-    cout << "\nEnter key in hexadecimal : " ;
+    cout << "\nEnter 64-bit key in hexadecimal(16-digits) : " ;
     cin >> hex >> hexkey; // to read hex input cin >> hex >> input
 
     string key = bitset<64>(hexkey).to_string(); // to convert hex to binary string
@@ -87,7 +87,7 @@ int main()
 akshat@pop-os:~/Desktop$ g++ main.cpp
 akshat@pop-os:~/Desktop$ ./a.out
 
-Enter key in hexadecimal : 1FE22472901BB2A3
+Enter 64-bit key in hexadecimal(16-digits) : 1FE22472901BB2A3
 Binary key (k) 	: 0001111111100010001001000111001010010000000110111011001010100011
 PC-1 key (k+) 	: 11010010000010101100111001111110101100000101001000011001
 
@@ -116,7 +116,7 @@ key 16 	: 010010011010100110011011011010100010100101010110
 akshat@pop-os:~/Desktop$ g++ main.cpp
 akshat@pop-os:~/Desktop$ ./a.out
 
-Enter key in hexadecimal : 133457799BBCDFF1
+Enter 64-bit key in hexadecimal(16-digits) : 133457799BBCDFF1
 Binary key (k) 	: 0001001100110100010101110111100110011011101111001101111111110001
 PC-1 key (k+) 	: 11110000110011001010101011110101010101100110011110001111
 
