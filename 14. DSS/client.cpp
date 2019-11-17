@@ -6,7 +6,7 @@ int connectToServer(const char* ip, long port)
 {
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in addr = {AF_INET, htons(port),inet_addr(ip)};
-    
+
     if(connect(sock, (struct sockaddr *) &addr, sizeof(addr)) < 0 ){
         cout << "\nRun server program first." << endl; exit(0);
     }else{
@@ -17,43 +17,43 @@ int connectToServer(const char* ip, long port)
 
 long mod(long a, long b)
 {
-	return a >= 0 ? (a%b) : b-(abs(a)%b) ;
+    return a >= 0 ? (a%b) : b-(abs(a)%b) ;
 }
 
 long powermod(long a, long b, long  c)
 {
-	long res=1;
-	for(int i=0;i<b;i++)
-	{
-		res = (res * a) % c;
-	}
-	return res;
+    long res=1;
+    for(int i=0;i<b;i++)
+    {
+        res = (res * a) % c;
+    }
+    return res;
 }
 
 long findInverse(long R , long D)
 {
-	int i = 0;
+    int i = 0;
     long N = D;
-	long p[100] = {0,1}, q[100] = {0} ;
-	while(R!=0)
-	{
-		q[i] = D/R ;
-		long oldD = D ;
-		D = R ;
-		R = oldD%R ;
-		if(i>1)
-		{
-			p[i] = mod(p[i-2] - p[i-1]*q[i-2], N) ;
-		}
-		i++ ;
-	}
-	if (i == 1) return 1;
-	else        return p[i] = mod(p[i-2] - p[i-1]*q[i-2], N) ;
+    long p[100] = {0,1}, q[100] = {0} ;
+    while(R!=0)
+    {
+        q[i] = D/R ;
+        long oldD = D ;
+        D = R ;
+        R = oldD%R ;
+        if(i>1)
+        {
+            p[i] = mod(p[i-2] - p[i-1]*q[i-2], N) ;
+        }
+        i++ ;
+    }
+    if (i == 1) return 1;
+    else        return p[i] = mod(p[i-2] - p[i-1]*q[i-2], N) ;
 }
 
 long H(long M)
 {
-	return (M ^ 1234); //hash key = 1234 
+    return (M ^ 1234); //hash key = 1234 
 }
 
 int main()
@@ -61,40 +61,40 @@ int main()
     char ip[50]; cout << "\nEnter server's IP address: "; cin >> ip;
     int port;    cout << "Enter port : "; cin >> port;
     int sock = connectToServer(ip, port);
-    
+
     long p, q; // prime numbers
     long r, s; // signature
     long g, y; // keys
     long M, hashval; // Message and Hash
     long w, v; // verify
-	srand(time(NULL));
-	
-	recv(sock, &p, sizeof(p), 0);
+    srand(time(NULL));
+
+    recv(sock, &p, sizeof(p), 0);
     recv(sock, &q, sizeof(q), 0);
-	recv(sock, &g, sizeof(g), 0);		
-	recv(sock, &y, sizeof(y), 0);
-	recv(sock, &hashval, sizeof(hashval), 0);
-	recv(sock, &r, sizeof(r), 0);
-	recv(sock, &s, sizeof(s), 0);	
+    recv(sock, &g, sizeof(g), 0);		
+    recv(sock, &y, sizeof(y), 0);
+    recv(sock, &hashval, sizeof(hashval), 0);
+    recv(sock, &r, sizeof(r), 0);
+    recv(sock, &s, sizeof(s), 0);	
 
-	cout << "Received p =  " << p << endl;
-	cout << "Received q =  " << q << endl;
-	cout << "Received g =  " << g << endl;
-	cout << "Received y =  " << y << endl;
-	cout << "Received H(M') =  " << hashval << endl;
-	cout << "Received r' = " << r << endl;
-	cout << "Received s' = " << s << endl;
+    cout << "Received p =  " << p << endl;
+    cout << "Received q =  " << q << endl;
+    cout << "Received g =  " << g << endl;
+    cout << "Received y =  " << y << endl;
+    cout << "Received H(M') =  " << hashval << endl;
+    cout << "Received r' = " << r << endl;
+    cout << "Received s' = " << s << endl;
 
-	M = H(hashval); // Message
-	cout << "\nMessage, M' = " << M << endl;
-	
-	//Verifying
-	w = findInverse(s,q) % q;  cout << "w = " << w << endl;
+    M = H(hashval); // Message
+    cout << "\nMessage, M' = " << M << endl;
+
+    //Verifying
+    w = findInverse(s,q) % q;  cout << "w = " << w << endl;
     long u1 = (hashval * w) % q;
-	long u2 = (r * w) % q;
+    long u2 = (r * w) % q;
     v = ((powermod(g,u1,p)*powermod(y,u2,p)) %p) %q;  cout<<"v = "<<v<<endl;
-	if(v == r) cout<<"\nDigital Signature Verified. " << endl << endl;
-	else	   cout<<"\nDigital Signature is invalid !!!" << endl << endl;	
+    if(v == r) cout<<"\nDigital Signature Verified. " << endl << endl;
+    else	   cout<<"\nDigital Signature is invalid !!!" << endl << endl;	
 }
 
 /*

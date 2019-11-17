@@ -4,16 +4,21 @@ using namespace std;
 
 int createServer(long port)
 {
-	int sersock = socket(AF_INET, SOCK_STREAM, 0);
+    int sersock = socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in addr = {AF_INET, htons(port), INADDR_ANY};
-    
+
     bind(sersock, (struct sockaddr *) &addr, sizeof(addr));
     cout << "\nServer Online. Waiting for client...." << endl;
-    
+
     listen(sersock, 5);
     int sock = accept(sersock, NULL, NULL);
     cout << "Connection Established." << endl;
     return sock;
+}
+
+long randInRange(long min, long max) // excluding min and max value
+{
+	return rand()%(max-min-1) + (min+1);
 }
 
 long mod(long a, long b)
@@ -23,33 +28,35 @@ long mod(long a, long b)
 
 long powermod(long a, long b, long  c)
 {
-	long res=1;
-	for(int i=0;i<b;i++)
-	{
-		res = (res * a) % c;
-	}
-	return res;
+    long res=1;
+    for(int i=0;i<b;i++)
+    {
+        res = (res * a) % c;
+    }
+    return res;
 }
 
 long findInverse(long R , long D)
 {
-	int i = 0;
+    int i = 0;
     long N = D;
-	long p[100] = {0,1}, q[100] = {0} ;
-	while(R!=0)
-	{
-		q[i] = D/R ;
-		long oldD = D ;
-		D = R ;
-		R = oldD%R ;
-		if(i>1)
-		{
-			p[i] = mod(p[i-2] - p[i-1]*q[i-2], N) ;
-		}
-		i++ ;
-	}
-	if (i == 1) return 1;
-	else        return p[i] = mod(p[i-2] - p[i-1]*q[i-2], N) ;
+    long p[100] = {0,1};
+    long q[100] = {0} ;
+
+    while(R!=0)
+    {
+        q[i] = D/R ;
+        long oldD = D ;
+        D = R ;
+        R = oldD%R ;
+        if(i>1)
+        {
+            p[i] = mod(p[i-2] - p[i-1]*q[i-2], N) ;
+        }
+        i++ ;
+    }
+    if (i == 1) return 1;
+    else        return p[i] = mod(p[i-2] - p[i-1]*q[i-2], N) ;
 }
 
 long H(long M)
@@ -61,48 +68,48 @@ int main()
 {
     int port;  cout << "\nEnter port : "; cin >> port;
     int sock = createServer(port);
-    
-	long p, q; // prime numbers
+
+    long p, q; // prime numbers
     long r, s; // signature
     long k, x, y, g; // keys
     long M, hashval; // Message and Hash
-	srand(time(NULL));
-	
-	cout << "\nEnter a prime number, p (>4) : ";   cin >> p; 
-	cout << "Enter a prime number, q (p-1 divisible by q & q>2) : "; cin >> q;
+    srand(time(NULL));
+
+    cout << "\nEnter a prime number, p (>4) : ";   cin >> p; 
+    cout << "Enter a prime number, q (p-1 divisible by q & q>2) : "; cin >> q;
     if( (p-1)%q != 0 || q <=2) { cout << "\nInvalid input\n"; exit(-1); }
 
-	cout<<"Enter message, M = "; cin >> M;
-	
-	hashval = H(M); 
+    cout<<"Enter message, M = "; cin >> M;
+
+    hashval = H(M); 
     cout << "\nH(M) = " << hashval << endl;
-	
+
     long h;
-	do{
-		h = rand()%(p-4)+2;   // 1 < h < p-1
-		g = powermod(h,(p-1)/q, p);	//g > 1
-	} while(g<=1);
-	cout << "g    = " << g;
+    do{
+        h = randInRange(1, p-1);        // 1 < h < p-1
+        g = powermod(h,(p-1)/q, p);	//g > 1
+    } while(g<=1);
+    cout << "g    = " << g;
 
-	x = rand()%(q-2) + 1;	cout << "\nServer's Private key, x = " << x;
-	y = powermod(g, x, p);	cout << "\nServer's Public  key, y = " << y;
-	k = rand()%(q-2) + 1;   cout << "\nSecret key, k = " << k << endl;
+    x = randInRange(1, q);  cout << "\nServer's Private key, x = " << x;
+    y = powermod(g, x, p);  cout << "\nServer's Public  key, y = " << y;
+    k = randInRange(1, q);  cout << "\nSecret key, k = " << k << endl;
 
-	//Signing
-	r = powermod(g, k, p) % q;
-	s = (findInverse(k,q) * (hashval + x*r )) % q; 
+    //Signing
+    r = powermod(g, k, p) % q;
+    s = (findInverse(k,q) * (hashval + x*r )) % q; 
     cout << "\nServer's Signature {r,s} = {" << r << ", " << s << "}" << endl;
 
     send(sock, &p, sizeof(p), 0);
     send(sock, &q, sizeof(q), 0);	
-	send(sock, &g, sizeof(g), 0);	
-	send(sock, &y, sizeof(y), 0);	
+    send(sock, &g, sizeof(g), 0);	
+    send(sock, &y, sizeof(y), 0);	
     send(sock, &hashval, sizeof(hashval), 0);
     send(sock, &r, sizeof(r), 0);
-	send(sock, &s, sizeof(s), 0);	
+    send(sock, &s, sizeof(s), 0);	
 
     cout << "\nSent p, q, g, and public key to client.";
-	cout <<"\nSent hash message along with signature to client." << endl << endl;
+    cout <<"\nSent hash message along with signature to client." << endl << endl;
 }
 
 /*
