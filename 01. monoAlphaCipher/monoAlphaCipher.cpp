@@ -12,7 +12,6 @@ iv. Compute the frequency of occurrence of each alphabet in both plaintext.txt
 ***********************************************************************************/
 
 #include<bits/stdc++.h>
-
 using namespace std;
 
 char uniqtext[26]; // Global variable
@@ -112,27 +111,6 @@ void showFrequency(string pt , string ct)
 		cout<< (float)mPlain[pt[i]]/pt.length() << "\t\t\t\t" << pt[i] << "\t\t\t\t" << ct[i] << endl ;
 	}
 }
-
-/* show frequency of only unique characters of plain text and cipher text */
-/*
-void showFrequency(string pt , string ct){
-	map<char , char> mPlain ; // frequency of each character of plain text
-	map<char , char> mCipher ; // frequency of each character of plain text
-	map<char , char> pc;
-
-	for(int i =0 ;i < pt.length() ; i++){
-		mPlain[pt[i]]++ ;
-		mCipher[ct[i]]++ ;
-		pc[pt[i]] = ct[i];
-	}
-
-	cout<<"Frequency\t\tPlaintext Character\t\tCiphertext character" <<endl;
-	cout<<"=========\t\t===================\t\t====================" <<endl;
-	for(int i =0 ;i < pc.size() ; i++){
-		cout<< (float)mCipher[pc[uniqtext[i]]]/ct.length() << "\t\t\t" << uniqtext[i] << "\t\t\t" << pc[uniqtext[i]] << endl ;
-	}
-}
-*/
 
 int main()
 {
