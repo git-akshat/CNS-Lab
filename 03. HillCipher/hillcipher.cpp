@@ -1,3 +1,5 @@
+/* Author : Natesh */
+
 #include<bits/stdc++.h>
 using namespace std ;
 
@@ -185,7 +187,7 @@ int main(void)
 	cout << "Enter the text to be encrypted    : " ;
 	cin >> pt;
 
-	cout << "Enter order of keymatrix : ";
+	cout << "Enter order of key matrix : ";
 	cin >> n ;
 
 	cout<<"Enter key matrix: " <<endl;
@@ -208,7 +210,7 @@ int main(void)
 
 /******************* OUTPUT-1 ****************************
 Enter the text to be encrypted    : meetmenow
-Enter number of rows in keymatrix : 2
+Enter order of key matrix : 2
 Enter key matrix:
 9   4
 5   7
@@ -220,7 +222,7 @@ Decrypted text : meetmenowx
 
 /******************* OUTPUT-2 ****************************
 Enter the text to be encrypted    : paymoremoney
-Enter number of rows in keymatrix : 3
+Enter order of key matrix : 3
 Enter key matrix:
 17   17   5
 21   18   21
@@ -233,7 +235,7 @@ Decrypted text : paymoremoney
 
 /******************* OUTPUT-3 ****************************
 Enter the text to be encrypted    : attackistonight
-Enter number of rows in keymatrix : 3
+Enter order of key matrix : 3
 Enter key matrix:
 3    10   20
 20   9    17
@@ -246,7 +248,7 @@ Decrypted text : attackistonight
 
 /******************* OUTPUT-4 ****************************
 Enter the text to be encrypted    : hillciphertechnique
-Enter number of rows in keymatrix : 2
+Enter order of key matrix : 2
 Enter key matrix:
 3   3
 2   5

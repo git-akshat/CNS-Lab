@@ -1,3 +1,5 @@
+/* Author : AKSHAT AGARWAL */
+
 # include <bits/stdc++.h>
 # include <arpa/inet.h> 
 using namespace std;
@@ -7,7 +9,7 @@ int PUs[2], PRs[2];     // server's keys
 int PUc[2];             // client's public key
 int sock;
 
-void createServer(int port)
+void createServer(int port)  // TCP connection
 {
     int sersock = socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in addr = {AF_INET, htons(port), INADDR_ANY};

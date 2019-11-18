@@ -1,3 +1,5 @@
+/* Author : Gangadhar, Akshat */
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -32,7 +34,7 @@ void generateMatrix(string key)
     /* Add remaining characters */
     for(char ch = 'a'; ch <= 'z'; ch++)
     {
-        if(ch == 'j') continue; // j was replaced by i
+        if(ch == 'j') continue; // don't fill j since j was replaced by i
 
         if(flag[ch - 'a'] == 0)
         {

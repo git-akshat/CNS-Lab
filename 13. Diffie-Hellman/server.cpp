@@ -1,8 +1,10 @@
+/* Author : AKSHAT AGARWAL */
+
 # include <bits/stdc++.h>
 # include <arpa/inet.h> 
 using namespace std;
 
-int createServer(int port)
+int createServer(int port)  // TCP connection
 {
 	int sersock = socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in addr = {AF_INET, htons(port), INADDR_ANY};
@@ -40,7 +42,7 @@ int main()
 	cout<< "\nClient's public key,  Yc = " << Yc <<endl;
 	
 	srand(time(NULL));
-	long Xs = rand()%(q-2)+2; // server's private key (1<Xa<q)
+	long Xs = rand()%(q-2)+2; // server's private key (1<Xs<q)
 	cout<< "\nServer's private key, Xs = " << Xs <<endl;
 	
 	long Ys = powermod(alpha, Xs, q); // server's public key

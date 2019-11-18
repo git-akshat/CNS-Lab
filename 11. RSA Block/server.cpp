@@ -2,7 +2,7 @@
 # include <arpa/inet.h> 
 using namespace std;
 
-int createServer(int port)
+int createServer(int port)  // TCP connection
 {
     int sersock = socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in addr = {AF_INET, htons(port), INADDR_ANY};
@@ -51,7 +51,6 @@ int main()
 
     for(int i=0; i<msg.length(); i+=2) // increment 2 for block
     { 
-        
         int M = toInt(msg[i])*100 + toInt(msg[i+1]); // block consist of two msg character 
         cout << "\nPlaintext block : " << M << endl;
 

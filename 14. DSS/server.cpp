@@ -1,8 +1,10 @@
+/* Author : AKSHAT AGARWAL */
+
 # include <bits/stdc++.h>
 # include <arpa/inet.h> 
 using namespace std;
 
-int createServer(long port)
+int createServer(long port)  // TCP connection+
 {
     int sersock = socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in addr = {AF_INET, htons(port), INADDR_ANY};

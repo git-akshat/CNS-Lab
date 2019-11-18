@@ -1,12 +1,14 @@
+/* Author : AKSHAT AGARWAL */
+
 #include<bits/stdc++.h>
 using namespace std ;
 
 string encrypt(string pt , string key)
 {
     string ct = ""; // ciphertext
-    int k = 0; // plaintext iterator
+    int k = 0;      // plaintext iterator
 
-    int num_row = ceil((float)pt.length() / key.length());
+    int num_row = ceil((float) pt.length()/key.length());
     int num_col = key.length();
     char mat[num_row][num_col];
     
