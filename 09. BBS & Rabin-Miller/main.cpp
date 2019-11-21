@@ -79,7 +79,7 @@ bool rabinMiller(int n)
     // if (a pow q)%n == 1
     if(powModN(a,q,n) == 1) return true;
 
-    for(int j=0; j<=k-1; j++)
+    for(int j=0; j<k ; j++)
     {
         if(powModN(a, pow(2,j)*q, n) == n-1) return true;
     }
