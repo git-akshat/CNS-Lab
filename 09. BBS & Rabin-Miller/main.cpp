@@ -1,4 +1,9 @@
 /* Author : AKSHAT AGARWAL */
+/*
+
+9. Write a program to generate large random number using BBS random number generator algorithm and check whether the generated number is prime or not using RABIN-MILLER primality testing algorithm.
+
+*/
 
 #include <bits/stdc++.h>
 using namespace std;

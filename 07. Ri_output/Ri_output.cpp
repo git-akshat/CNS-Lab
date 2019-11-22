@@ -1,4 +1,9 @@
 /* Author : AKSHAT AGARWAL */
+/*
+
+7. Given 48-bit input to S-box and permutation table P, find the 32-bit output Ri of ith round of DES algorithm.
+
+*/
 
 #include <bits/stdc++.h>
 using namespace std;

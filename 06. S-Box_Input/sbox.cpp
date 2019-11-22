@@ -1,4 +1,9 @@
 /* Author : AKSHAT AGARWAL */
+/*
+
+6. Given 64-bit output of (i-1)th round of DES, 48-bit ith round key Ki and E table, find the 48-bit input for S-box.
+
+*/
 
 #include <bits/stdc++.h>
 using namespace std;

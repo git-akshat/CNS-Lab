@@ -1,4 +1,9 @@
 /* Author : AKSHAT AGARWAL */
+/*
+
+13. Compute common secret key between client and server using Diffie-Hellman key exchange technique. Perform encryption and decryption of message using the shared secret key (Use simple XOR operation to encrypt and decrypt the message.)
+
+*/
 
 # include <bits/stdc++.h>
 # include <arpa/inet.h> 

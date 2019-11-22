@@ -1,4 +1,7 @@
 /* Author : AKSHAT AGARWAL */
+/*
+4. Write a program to perform encryption and decryption using transposition technique with column permutation given as key.
+*/
 
 #include<bits/stdc++.h>
 using namespace std ;

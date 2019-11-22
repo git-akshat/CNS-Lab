@@ -1,4 +1,7 @@
 /* Author : Natesh */
+/*
+5. Generate and print 48-bit keys for all sixteen rounds of DES algorithm, given a 64-bit initial key.
+*/
 
 #include <bits/stdc++.h>
 using namespace std;

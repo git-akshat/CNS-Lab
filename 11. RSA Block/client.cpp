@@ -1,3 +1,11 @@
+/*
+11. Implement RSA algorithm to process blocks of plaintext (refer Figure 9.7 of the text book), where plaintext is a string of characters and let the block size be two characters. (Note: assign a unique code to each plain text character i.e., a=00, A=26). The program should support the following.
+    - Accept string of characters as plaintext.
+    - Encryption takes plaintext and produces ciphertext characters.
+    - Decryption takes ciphertext characters obtained in step ii and produces corresponding plaintext characters
+    - Display the result after each step
+*/
+
 /* Note: give p and q values such that p*q > 5151 (since ZZ=5151) */
 
 # include <bits/stdc++.h>
