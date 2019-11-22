@@ -106,7 +106,7 @@ int main()
     send(sock, &q, sizeof(q), 0);	
     send(sock, &g, sizeof(g), 0);	
     send(sock, &y, sizeof(y), 0);	
-    send(sock, &hashval, sizeof(hashval), 0);
+    send(sock, &M , sizeof(M), 0);
     send(sock, &r, sizeof(r), 0);
     send(sock, &s, sizeof(s), 0);	
 

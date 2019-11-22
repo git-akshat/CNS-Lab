@@ -77,7 +77,7 @@ int main()
     recv(sock, &q, sizeof(q), 0);
     recv(sock, &g, sizeof(g), 0);		
     recv(sock, &y, sizeof(y), 0);
-    recv(sock, &hashval, sizeof(hashval), 0);
+    recv(sock, &M , sizeof(M), 0);
     recv(sock, &r, sizeof(r), 0);
     recv(sock, &s, sizeof(s), 0);	
 
@@ -85,12 +85,12 @@ int main()
     cout << "Received q =  " << q << endl;
     cout << "Received g =  " << g << endl;
     cout << "Received y =  " << y << endl;
-    cout << "Received H(M') =  " << hashval << endl;
+    cout << "Received M'=  " << M << endl;
     cout << "Received r' = " << r << endl;
     cout << "Received s' = " << s << endl;
 
-    M = H(hashval); // Message
-    cout << "\nMessage, M' = " << M << endl;
+    hashval = H(M) ; 
+    cout << "\nH(M') = " << hashval << endl;
 
     //Verifying
     w = findInverse(s,q) % q;  cout << "w = " << w << endl;
