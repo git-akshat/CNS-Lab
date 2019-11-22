@@ -111,7 +111,7 @@ int main()
     send(sock, &s, sizeof(s), 0);	
 
     cout << "\nSent p, q, g, and public key to client.";
-    cout <<"\nSent hash message along with signature to client." << endl << endl;
+    cout <<"\nSent message along with signature to client." << endl << endl;
 }
 
 /*
@@ -140,5 +140,5 @@ Secret key, k = 1
 Server's Signature {r,s} = {0, 1}
 
 Sent p, q, g, and public key to client.
-Sent hash message along with signature to client.
+Sent message along with signature to client.
 */
