@@ -110,11 +110,11 @@ Received p =  13
 Received q =  3
 Received g =  3
 Received y =  3
-Received H(M') =  1057
+Received M' =  1057
 Received r' = 0
 Received s' = 1
 
-Message, M' = 243
+H(M') = 243
 w = 1
 v = 0
 
