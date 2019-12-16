@@ -61,3 +61,6 @@ This repository contains programs implemented in Cryptography and network securi
 
 
 14. Implement DSS algorithm for signing and verification of messages between two parties (obtain H(M) using simple XOR method of hash computation on M).
+
+###
+[**Download Manual**](https://github.com/git-akshat/CNS-Lab/blob/master/CNS_LAB_Manual.pdf)
