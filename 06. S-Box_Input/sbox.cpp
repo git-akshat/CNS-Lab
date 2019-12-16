@@ -1,9 +1,6 @@
-/* Author : AKSHAT AGARWAL */
-/*
+/* Author : AKSHAT AGARWAL 
 
-6. Given 64-bit output of (i-1)th round of DES, 48-bit ith round key Ki and E table, find the 48-bit input for S-box.
-
-*/
+6. Given 64-bit output of (i-1)th round of DES, 48-bit ith round key Ki and E table, find the 48-bit input for S-box.	*/
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -83,11 +80,7 @@ int main()
 	cout << "\nInput to s-box : " << sBoxInput << endl << endl;
 }
 
-/******************************* Output-1 ***********************************************
-
-akshat@pop-os:~/Downloads/Telegram Desktop$ g++ sbox.cpp
-akshat@pop-os:~/Downloads/Telegram Desktop$ ./a.out
-
+/******************************* Output-1 ******************************************
 Enter Round number (i) : 1
 Enter 64-bit (i-1)th round output in hex: cc00ccfff0aaf0aa
 
@@ -98,5 +91,4 @@ Right half of 64-bit input, Ri_1 = 11110000101010101111000010101010
 Ri_1 after expansion permutation = 011110100001010101010101011110100001010101010101
 
 Input to s-box : 011000010001011110111010100001100110010100100111
-
-*****************************************************************************************/
+************************************************************************************/

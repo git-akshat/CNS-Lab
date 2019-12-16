@@ -2,8 +2,8 @@
 
 3. Write a program to perform the following using Hill cipher:
     - Encrypt a message M with a given key matrix of size 2X2 and 3X3
-    - Decrypt the cipher text obtained in (i) by computing inverse of the respective key matrix.
-
+    - Decrypt the cipher text obtained in (i) by computing inverse of
+	  the respective key matrix.
 */
 
 #include<bits/stdc++.h>

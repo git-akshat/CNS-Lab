@@ -1,16 +1,16 @@
 /* Author : Natesh */
-/*********************************************************************************
-Perform encryption and decryption using mono-alphabetic cipher.
-The program should support the following:
+/******************************************************************************
+1. Perform encryption and decryption using mono-alphabetic cipher.The program 
+   should support the following:
 i.  Construct an input file named plaintext.txt (consisting of 1000 alphabets,
-    without any space or special characters)
+	without any space or special characters)
 ii. Compute key space (Permutation of set of all letters appeared in plaintext.txt:
-    there are n! permutations of a set of n elements)
+	there are n! permutations of a set of n elements)
 iii.Encrypt the characters of plaintext.txt using any one key from (ii)
-    and store the corresponding ciphertext characters in ciphertext.txt
+	and store the corresponding ciphertext characters in ciphertext.txt
 iv. Compute the frequency of occurrence of each alphabet in both plaintext.txt
-    and ciphertext.txt and tabulate the results as follows
-***********************************************************************************/
+	and ciphertext.txt and tabulate the results as follows
+********************************************************************************/
 
 #include<bits/stdc++.h>
 using namespace std;

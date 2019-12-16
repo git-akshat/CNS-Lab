@@ -1,9 +1,10 @@
 /* Author : Gangadhar, Akshat */
-/* 
-2. Write a program to perform the following using Playfair cipher technique
-    - Encrypt a given message M with different keys {k1,k2,...,kn}. Print key and cipher text pair
-    - Decrypt the cipher texts obtained in (i) to get back M
-*/
+/***************************************************************************
+ 2. Write a program to perform the following using Playfair cipher technique
+    - Encrypt a given message M with different keys {k1,k2,...,kn}.
+      Print key and cipher text pair.
+    - Decrypt the cipher texts obtained in (i) to get back M       
+****************************************************************************/
 
 #include <bits/stdc++.h>
 using namespace std;

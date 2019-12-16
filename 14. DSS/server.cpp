@@ -1,15 +1,14 @@
-/* Author : AKSHAT AGARWAL */
-/*
+/* Author : AKSHAT AGARWAL 
 
-14. Implement DSS algorithm for signing and verification of messages between two parties (obtain H(M) using simple XOR method of hash computation on M).
+14. Implement DSS algorithm for signing and verification of messages between two parties (obtain H(M) using simple XOR method of hash computation on M). */
 
-*/
+/* Server Program */
 
 # include <bits/stdc++.h>
 # include <arpa/inet.h> 
 using namespace std;
 
-int createServer(long port)  // TCP connection+
+int createServer(long port)  // TCP connection
 {
     int sersock = socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in addr = {AF_INET, htons(port), INADDR_ANY};

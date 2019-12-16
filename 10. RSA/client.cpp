@@ -1,13 +1,11 @@
-/* 
-CLIENT 
-Author : AKSHAT AGARWAL 
+/* Author : AKSHAT AGARWAL 
 
 10. Implement RSA algorithm using client-server concept. The program should support the following :
     - Client generates {PU, PR} and distributes PU to Server.
     - Sever encrypts message M using client’s public key {PU}.
-    - Client decrypts the message sent by server using its private key {PR}
+    - Client decrypts the message sent by server using its private key {PR} */
 
-*/
+/* Client Program */
 
 # include <bits/stdc++.h>
 # include <arpa/inet.h> 
@@ -80,9 +78,6 @@ int main()
 }
 
 /*
-akshat@pop-os:~/Desktop$ g++ client.cpp -o c.out
-akshat@pop-os:~/Desktop$ ./c.out
-
 Enter server's IP address: 192.168.224.74
 Enter port : 4444
 

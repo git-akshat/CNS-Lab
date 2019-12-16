@@ -1,9 +1,8 @@
-/* Author : AKSHAT AGARWAL */
-/*
+/* Author : AKSHAT AGARWAL 
 
-14. Implement DSS algorithm for signing and verification of messages between two parties (obtain H(M) using simple XOR method of hash computation on M).
+14. Implement DSS algorithm for signing and verification of messages between two parties (obtain H(M) using simple XOR method of hash computation on M). */
 
-*/
+/* Client Program */
 
 # include <bits/stdc++.h>
 # include <arpa/inet.h> 

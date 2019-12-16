@@ -1,9 +1,7 @@
-/* Author : AKSHAT AGARWAL */
-/*
+/* Author : AKSHAT AGARWAL 
 
-7. Given 48-bit input to S-box and permutation table P, find the 32-bit output Ri of ith round of DES algorithm.
-
-*/
+7. Given 48-bit input to S-box and permutation table P, 
+   find the 32-bit output Ri of ith round of DES algorithm.    */
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -123,10 +121,7 @@ int main()
     cout << "\nOutput of ith round (Ri) = " << Ri << endl << endl;
 }
 
-/******************************* Output-1 ***********************************************
-cnslaba1@linux-HP-Pro-3090-Microtower-PC:~/akshat/output_Ri$ g++ main.cpp
-cnslaba1@linux-HP-Pro-3090-Microtower-PC:~/akshat/output_Ri$ ./a.out
-
+/******************************* Output-1 ******************************************
 Enter 48 bit input for S-Box in hex(12-digits)      : 6117ba866527
 Enter 64-bit (i-1)th round output in hex(16-digits) : cc00ccfff0aaf0aa
 
@@ -138,4 +133,4 @@ S-Box output    = 01011100100000101011010110010111
 Permuted output = 00100011010010101010100110111011
 
 Output of ith round (Ri) = 11101111010010100110010101000100
-*****************************************************************************************/
+***********************************************************************************/
