@@ -8,7 +8,7 @@
 # include <arpa/inet.h> 
 using namespace std;
 
-int createServer(long port)  // TCP connection
+int createServer(int port)  // TCP connection
 {
     int sersock = socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in addr = {AF_INET, htons(port), INADDR_ANY};
@@ -22,9 +22,9 @@ int createServer(long port)  // TCP connection
     return sock;
 }
 
-long randInRange(long min, long max) // excluding min and max value
+long randInRange(long low, long high) // excluding high and low
 {
-	return rand()%(max-min-1) + (min+1);
+    return rand()%(high-(low+1)) + (low+1) ;
 }
 
 long mod(long a, long b)
@@ -65,7 +65,7 @@ long findInverse(long R , long D)
     else        return p[i] = mod(p[i-2] - p[i-1]*q[i-2], N) ;
 }
 
-long H(long M)
+long H(long M) // Hash Function
 {
 	return (M ^ 1234); //hash key = 1234 
 }
@@ -81,9 +81,9 @@ int main()
     long M, hashval; // Message and Hash
     srand(time(NULL));
 
-    cout << "\nEnter a large prime number, p (>4) : ";   cin >> p; 
+    cout << "\nEnter a large prime number, p : ";   cin >> p; 
     cout << "Enter a prime number, q (p-1 divisible by q & q>2) : "; cin >> q;
-    if( (p-1)%q != 0 || q <=2) { cout << "\nInvalid input\n"; exit(-1); }
+    if( (p-1)%q != 0 || q <3) { cout << "\nInvalid input\n"; exit(-1); }
 
     cout<<"Enter message, M = "; cin >> M;
 

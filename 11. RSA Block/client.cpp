@@ -12,7 +12,6 @@
 # include <arpa/inet.h> 
 using namespace std;
 
-
 int connectToServer(const char* ip, int port)
 {
     int sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -26,20 +25,30 @@ int connectToServer(const char* ip, int port)
     return sock;
 }
 
+int randInRange(int low, int high) // excluding high and low
+{
+    return rand()%(high-(low+1)) + (low+1) ;
+}
+
 int gcd(int a, int b)
 {
     return b==0 ? a : gcd(b, a%b);
 }
 
+int powermod(int a, int b, int n)
+{
+    int res = 1;
+    for(int i=0; i<b; i++)
+    {
+        res = (res*a) % n;
+    }
+    return res;
+}
+
 // M = C^d mod n
 int decrypt(int C, int PR[2])
 {
-    int M = 1;
-    for(int i=1; i<=PR[0]; i++)
-    {
-        M = (M*C) % PR[1];
-    }
-    return M;
+    return powermod(C, PR[0], PR[1]);
 }
 
 // a=00, b=01, ... A=26, B=27...
@@ -63,7 +72,7 @@ int main()
 
     srand(time(NULL));
     int e, d;
-    do{ e = rand()%(phi-2)+2; } while(gcd(e,phi) != 1);
+    do{ e = randInRange(1, phi); } while(gcd(e,phi) != 1);
     
     for(d=1; d<phi; d++)
     {

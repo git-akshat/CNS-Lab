@@ -8,7 +8,7 @@
 # include <arpa/inet.h> 
 using namespace std;
 
-int connectToServer(const char* ip, long port)
+int connectToServer(const char* ip, int port)
 {
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in addr = {AF_INET, htons(port),inet_addr(ip)};

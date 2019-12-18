@@ -21,7 +21,7 @@ int main()
     cout << "\nPlain text \t: " ;
     for(int i=0; i<n; i++)
     {
-        pt[i] = ptString[i]; // converting char to their ASCII value
+        pt[i] = ptString[i]; // converting char to its ASCII value
         cout << pt[i] << " ";
     }
 

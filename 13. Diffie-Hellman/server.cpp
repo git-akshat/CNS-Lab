@@ -1,4 +1,4 @@
-/* Author : AKSHAT AGARWAL 
+/* Author : Aditya Pranav, AKSHAT AGARWAL 
 
 13. Compute common secret key between client and server using Diffie-Hellman key exchange technique. Perform encryption and decryption of message using the shared secret key (Use simple XOR operation to encrypt and decrypt the message.)  */
 
@@ -22,6 +22,11 @@ int createServer(int port)  // TCP connection
     return sock;
 }
 
+int randInRange(int low, int high) // excluding high and low
+{
+    return rand()%(high-(low+1)) + (low+1) ;
+}
+
 long powermod(long a, long b, long  q)
 {
 	long res=1;
@@ -41,12 +46,12 @@ int main()
 	cout<<"\nEnter a prime number, q : "; cin >> q;
 	cout<<"Enter primitive root of q, alpha : "; cin >> alpha;
 	
-	long Yc;
+	long Yc; 
 	recv(sock, &Yc, sizeof(Yc), 0);	 // recv client's public key
 	cout<< "\nClient's public key,  Yc = " << Yc <<endl;
 	
 	srand(time(NULL));
-	long Xs = rand()%(q-2)+2; // server's private key (1<Xs<q)
+	long Xs = randInRange(1, q); // server's private key
 	cout<< "\nServer's private key, Xs = " << Xs <<endl;
 	
 	long Ys = powermod(alpha, Xs, q); // server's public key
@@ -59,7 +64,7 @@ int main()
 	long msg;
 	cout<<"\nEnter a message(number) to send : "; cin>>msg;
 	
-	long cipher=msg^k;
+	long cipher = msg ^ k; // encryption
 	send(sock, &cipher, sizeof(cipher), 0);
 	cout << "Encrypted msg sent to client: " << cipher << endl << endl;
 }

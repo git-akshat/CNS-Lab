@@ -82,7 +82,7 @@ position getPosition(char c)
 
 string encrypt(string message)
 {
-    string ctext;
+    string ctext = "";
     for(int i=0; i<message.length(); i+=2)    // i is incremented by 2 inorder to check for pair values
     {
 		position p1 = getPosition(message[i]);
@@ -92,18 +92,18 @@ string encrypt(string message)
     
         if( x1 == x2 ) // same row
         {
-            ctext.append(1, mat[x1][(y1+1)%5]);
-            ctext.append(1, mat[x2][(y2+1)%5]);
+            ctext +=  mat[x1][(y1+1)%5];
+            ctext +=  mat[x2][(y2+1)%5];
         }
         else if( y1 == y2 ) // same column
         {
-            ctext.append(1, mat[ (x1+1)%5 ][ y1 ]);
-            ctext.append(1, mat[ (x2+1)%5 ][ y2 ]);
+            ctext += mat[ (x1+1)%5 ][ y1 ];
+            ctext += mat[ (x2+1)%5 ][ y2 ];
         }
         else
         {
-            ctext.append(1, mat[ x1 ][ y2 ]);
-            ctext.append(1, mat[ x2 ][ y1 ]);
+            ctext += mat[ x1 ][ y2 ];
+            ctext += mat[ x2 ][ y1 ];
         }
     }
     return ctext;
@@ -112,7 +112,7 @@ string encrypt(string message)
 
 string Decrypt(string message)
 {
-    string ptext;
+    string ptext = "";
     for(int i=0; i<message.length(); i+=2) // i is incremented by 2 inorder to check for pair values
     {
         position p1 = getPosition(message[i]);
@@ -122,18 +122,18 @@ string Decrypt(string message)
 
         if( x1 == x2 ) // same row
         {
-            ptext.append(1, mat[x1][ --y1<0 ? 4: y1 ]);
-            ptext.append(1, mat[x2][ --y2<0 ? 4: y2 ]);
+            ptext += mat[x1][ --y1<0 ? 4: y1 ];
+            ptext += mat[x2][ --y2<0 ? 4: y2 ];
         }
         else if( y1 == y2 ) // same column
         {
-            ptext.append(1, mat[ --x1<0 ? 4: x1 ][y1]);
-            ptext.append(1, mat[ --x2<0 ? 4: x2 ][y2]);
+            ptext += mat[ --x1<0 ? 4: x1 ][y1];
+            ptext += mat[ --x2<0 ? 4: x2 ][y2];
         }
         else
         {
-            ptext.append(1, mat[ x1 ][ y2 ]);
-            ptext.append(1, mat[ x2 ][ y1 ]);
+            ptext += mat[ x1 ][ y2 ];
+            ptext += mat[ x2 ][ y1 ];
         }
     }
     return ptext;

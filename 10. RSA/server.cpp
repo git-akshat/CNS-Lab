@@ -26,15 +26,20 @@ int createServer(int port) // TCP connection
     return sock;
 }
 
+int powermod(int a, int b, int n)
+{
+    int res = 1;
+    for(int i=0; i<b; i++)
+    {
+        res = (res*a) % n;
+    }
+    return res;
+}
+
 // C = M^e mod n
 int encrypt(int M, int PU[2]) // PU = {e, n}
 {
-    int C=1;
-    for(int i=1; i<=PU[0]; i++)
-    {
-        C = (C * M) % PU[1];
-    }
-    return C;
+    return powermod(M, PU[0], PU[1]);
 }
 
 int main()

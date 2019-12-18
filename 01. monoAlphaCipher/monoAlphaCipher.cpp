@@ -93,7 +93,7 @@ string encrypt(string unique, string key)
 	return ciphertext;
 }
 
-/* frequency = (no of occurance of a character / length of text) */
+/* frequency = (no of occurance of a character / length of plaintext) */
 /* show frequency of all characters of plain text and cipher text */
 void showFrequency(string pt , string ct)
 {
@@ -127,7 +127,7 @@ int main()
 	cout<<"Chosen key = \t" << key <<endl;
 
 	string ciphertext = encrypt(uniqtext , key) ;
-	writecipherText(ciphertext) ;
+	writecipherText(ciphertext) ; // write ciphertext to file
 	showFrequency(plaintext , ciphertext) ;
 }
 

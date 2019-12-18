@@ -11,6 +11,7 @@
 # include <arpa/inet.h> 
 using namespace std;
 
+
 int p, q, e, d, n, phi; // global variables
 int PUc[2], PRc[2];     // client's keys
 int PUs[2];             // server's public key
@@ -28,6 +29,11 @@ void connectToServer(const char* ip, int port)
     }
 }
 
+int randInRange(int low, int high) // excluding high and low
+{
+    return rand()%(high-(low+1)) + (low+1) ;
+}
+
 int gcd(int a, int b)
 {
     return b==0 ? a : gcd(b, a%b);
@@ -40,7 +46,7 @@ void genKey()
     phi = (p-1) * (q-1);
 
     srand(time(NULL));
-    do{ e = rand()%(phi-2)+2; } while(gcd(e,phi) != 1);
+    do{ e = randInRange(1, phi); } while(gcd(e,phi) != 1);
     for(d=1; d<phi; d++)
     {
         if((d*e)%phi == 1) break;
@@ -60,20 +66,24 @@ void shareKey() // first receive then send
     cout << "\nSent client's Public key to server." << endl;
 }
 
-// C = M^e mod n
-int encrypt(int M, int P[2]) // P = {e or d, n}
+int powermod(int a, int b, int n)
 {
-    int C=1;
-    for(int i=1; i<=P[0]; i++)
+    int res = 1;
+    for(int i=0; i<b; i++)
     {
-        C = (C * M) % P[1];
+        res = (res*a) % n;
     }
-    return C;
+    return res;
 }
 
-int decrypt(int C, int P[2])
+int encrypt(int M, int PU[2])
 {
-    return encrypt(C,P);
+    return powermod(M, PU[0], PU[1]);
+}
+
+int decrypt(int C, int PR[2])
+{
+    return powermod(C, PR[0], PR[1]);
 }
 
 int main()

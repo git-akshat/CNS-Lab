@@ -27,15 +27,20 @@ int createServer(int port)  // TCP connection
     return sock;
 }
 
-// C = M^e mod n
-int encrypt(int M, int PU[2])
+int powermod(int a, int b, int n)
 {
-    int C=1;
-    for(int i=1; i<=PU[0]; i++)
+    int res = 1;
+    for(int i=0; i<b; i++)
     {
-        C = (C * M) % PU[1];
+        res = (res*a) % n;
     }
-    return C;
+    return res;
+}
+
+// C = M^e mod n
+int encrypt(int M, int PU[2]) // PU = {e, n}
+{
+    return powermod(M, PU[0], PU[1]);
 }
 
 // a=00, b=01, ... A=26, B=27...
@@ -59,7 +64,7 @@ int main()
     
     if(msg.length()% 2 != 0) msg+="x";
 
-    for(int i=0; i<msg.length(); i+=2) // increment 2 for block
+    for(int i=0; i<msg.length(); i+=2) // increment by 2 for block
     { 
         int M = toInt(msg[i])*100 + toInt(msg[i+1]); // block consist of two msg character 
         cout << "\nPlaintext block : " << M << endl;
@@ -69,7 +74,7 @@ int main()
         send(sock, &C, sizeof(C), 0); // send ciphertext to client
     }
     int stop = -1; // at end send -1 to tell client to stop
-    send(sock, &stop, sizeof(stop), 0); //at end send -1 to client
+    send(sock, &stop, sizeof(stop), 0); //at end send stop to client
     cout << "\nSent ciphertext to client." << endl << endl;
 }
 
