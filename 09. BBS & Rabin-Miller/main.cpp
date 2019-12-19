@@ -51,12 +51,12 @@ int bbs(int p, int q)
 }
 
 // (a pow b) % n
-int powModN(int a, int b, int n)
+unsigned long long powModN(int a, int b, int n)
 {
-	int res=1;
+	unsigned long long res=1;
 	for(int i=0; i<b; i++)
 	{
-        res = (res * a) % n;
+        res = ((unsigned long long)(res * a)) % n;
 	}
 	return res;
 }
