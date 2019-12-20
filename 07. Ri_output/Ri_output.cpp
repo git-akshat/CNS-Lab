@@ -6,7 +6,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-unsigned int sBoxes[8][64] = {
+unsigned int sBoxes[8][4][16] = {
    {14,4,13,1,2,15,11,8,3,10,6,12,5,9,0,7,
     0,15,7,4,14,2,13,1,10,6,12,11,9,5,3,8,
     4,1,14,8,13,6,2,11,15,12,9,7,3,10,5,0,
@@ -62,11 +62,11 @@ string substitution(string input)
         string sInput = input.substr(6*i, 6) ;
         int row = bitset<2>( sInput.substr(0,1) + sInput.substr(5,1) ).to_ulong() ;
         int col = bitset<4>( sInput.substr(1,4) ).to_ulong() ;
-        res += bitset<4>(sBoxes[i][row*16+col]).to_string() ;
+        res += bitset<4>(sBoxes[i][row][col]).to_string() ;
 
         // To display individual s-box input and output un-comment this block
         // string value = "";
-        // value = bitset<4>(sBoxes[i][row*16+col]).to_string() ;
+        // value = bitset<4>(sBoxes[i][row][col]).to_string() ;
         // cout << "sbox-" << i+1 <<  ": \t" << sInput << "\t\t" << value << endl;
     }
     return res;
